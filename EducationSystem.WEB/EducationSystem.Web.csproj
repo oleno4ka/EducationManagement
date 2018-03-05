@@ -6,12 +6,13 @@
 
   <ItemGroup>
     <None Remove="src\app\app.service.ts" />
+    <None Remove="src\app\_services\authentication.service.ts" />
+    <None Remove="src\app\_services\base-toaster.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="src\app\_models\" />
     <Folder Include="src\app\_enums\" />
-    <Folder Include="src\app\_services\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -24,7 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="src\app\app.service.ts" />
+    <TypeScriptCompile Include="src\app\_services\authentication.service.ts" />
+    <TypeScriptCompile Include="src\app\_services\base-toaster.service.ts" />
   </ItemGroup>
 
 </Project>

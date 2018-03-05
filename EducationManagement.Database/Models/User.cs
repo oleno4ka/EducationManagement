@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace EducationManagement.Database.Models
 {
-    public partial class User
+    public partial class User //: IdentityUser
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

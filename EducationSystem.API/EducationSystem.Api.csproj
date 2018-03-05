@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EducationManagement.Database\EducationSystem.Database.csproj" />
+    <ProjectReference Include="..\EducationSystem.Dal\EducationSystem.Dal.csproj" />
+    <ProjectReference Include="..\EducationSystem.Models\EducationSystem.Models.csproj" />
   </ItemGroup>
 
 </Project>

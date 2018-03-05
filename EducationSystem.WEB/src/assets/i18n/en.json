@@ -1,0 +1,15 @@
+﻿{
+  "login": {
+    "title": "Login",
+    "subtitle": "Please, put your account information to login",
+    "button_login_text": "Login",
+    "label_email": "Email",
+    "label_password": "Password"
+  },
+  "login_error": {
+    "email_required": "Email is required",
+    "email_invalid": "Please, put valid information",
+    "pass_required": "Password is required",
+    "pass_invalid": "Please, put valid password"
+  }
+}

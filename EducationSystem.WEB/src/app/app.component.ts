@@ -5,6 +5,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
+import { TranslateService } from '@ngx-translate/core'
+import { BaseTosterService } from './_services/base-toaster.service'
 
 declare const $: any;
 
@@ -17,10 +19,19 @@ export class AppComponent implements OnInit {
     private _router: Subscription;
     private lastPoppedUrl: string;
     private yScrollStack: number[] = [];
+    baseToasterConfig: {};
+    private translate: TranslateService;
 
     @ViewChild(NavbarComponent) navbar: NavbarComponent;
 
-    constructor( public location: Location, private router: Router) {}
+    constructor(public location: Location, private router: Router, translate: TranslateService, private tosterService: BaseTosterService) {
+        // this language will be used as a fallback when a translation isn't found in the current language
+        this.translate = translate;
+        this.translate.setDefaultLang('en');
+        // the lang to use, if the lang isn't available, it will use the current loader to get them
+        this.translate.use('en');
+        this.baseToasterConfig = this.tosterService.baseToasterConfig;
+    }
 
     ngOnInit() {
         $.material.init();
@@ -78,5 +89,8 @@ export class AppComponent implements OnInit {
             bool = true;
         }
         return bool;
+    }
+    useLanguage(language: string) {
+        this.translate.use(language);
     }
 }

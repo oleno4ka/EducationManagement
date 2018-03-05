@@ -1,0 +1,54 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">{{'login.title' | translate}}</h4>
+                        <p class="category">{{'login.subtitle' | translate}}</p>
+                    </div>
+                    <toaster-container [toasterconfig]="config1"></toaster-container>
+                    <div class="card-content">
+                        <form #f="ngForm" (ngSubmit)="login()" novalidate>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">{{'login.label_email' | translate}}</label>
+                                        <input type="email" name="email" [(ngModel)]="model.email" #email="ngModel" ngModel required
+                                               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control">
+                                    </div>
+                                    <div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
+                                        <div *ngIf="f.submitted && email.errors && email.errors.required">
+                                            {{'login_error.email_required' | translate}}
+                                        </div>
+                                        <div *ngIf="f.submitted && email.errors && email.errors.pattern">
+                                            {{'login_error.email_invalid' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">{{'login.label_password' | translate}}</label>
+                                        <input type="password" name="password" [(ngModel)]="model.password" #password="ngModel" ngModel required class="form-control">
+                                    </div>
+                                    <div class="md-errors-spacer" [hidden]="password.valid || password.untouched">
+                                        <div *ngIf="f.submitted && password.errors && password.errors.required">
+                                            {{'login_error.pass_required' | translate}}
+                                        </div>
+                                        <div *ngIf="f.submitted && password.errors && password.errors.pattern">
+                                            {{'login_error.pass_invalid' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" [disabled]="loading" class="btn btn-danger pull-right">{{'login.button_login_text' | translate}}</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
