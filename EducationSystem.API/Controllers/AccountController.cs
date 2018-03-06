@@ -41,7 +41,7 @@ namespace EducationSystem.Api.Controllers
             var user = await _unitOfWork.UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                ModelState.AddModelError("Email", "ERR_USER_NOT_FOUND");
+                ModelState.AddModelError("Email", "api_account_errors.user_notfound");
             }
             else
             {
@@ -82,7 +82,7 @@ namespace EducationSystem.Api.Controllers
             if (!ModelState.IsValid) { return BadRequest("Could not create token"); }
             if (await _unitOfWork.UserManager.FindByNameAsync(model.Email) != null)
             {
-                ModelState.AddModelError("Email", "ERR_USER_ALREADY_EXISTS");
+                ModelState.AddModelError("Email", "api_account_arror.user_alreadyexist");
             }
             else
             {

@@ -1,7 +1,7 @@
-<p>
+<!--<p>
   register-page works!
-</p>
-<form #f="ngForm" (ngSubmit)="register()" novalidate>
+</p>-->
+<!--<form #f="ngForm" (ngSubmit)="register()" novalidate>
     <div class="fieldWrap">
         <h1>Account Info</h1>
         <h5>These fields are required</h5>
@@ -71,4 +71,158 @@
         </div>
     </div>
     <button class="btn-default btn_custom center-block" type="submit">Register</button>
-</form>
+</form>-->
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">{{'register.title' | translate}}</h4>
+                        <p class="category">{{'register.subtitle' | translate}}</p>
+                    </div>
+                    <toaster-container [toasterconfig]="config1"></toaster-container>
+                    <div class="card-content">
+                        <form #f="ngForm" (ngSubmit)="register()" novalidate>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">{{'register.label_email' | translate}}</label>
+                                        <input type="email" name="email" [(ngModel)]="model.email" #email="ngModel" ngModel required
+                                               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control">
+                                    </div>
+                                    <div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
+                                        <div *ngIf="f.submitted && email.errors && email.errors.required">
+                                            {{'register_error.email_required' | translate}}
+                                        </div>
+                                        <div *ngIf="f.submitted && email.errors && email.errors.pattern">
+                                            {{'register_error.email_invalid' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">{{'register.label_firstname' | translate}}</label>
+                                        <input type="text" name="firstname" [(ngModel)]="model.firstname" #firstname="ngModel" ngModel required class="form-control">
+                                    </div>
+                                    <div class="md-errors-spacer" [hidden]="firstname.valid || firstname.untouched">
+                                        <div *ngIf="f.submitted && firstname.errors && firstname.errors.required">
+                                            {{'register_error.firstname_required' | translate}}
+                                        </div>
+                                        <div *ngIf="f.submitted && firstname.errors && firstname.errors.pattern">
+                                            {{'register_error.firstname_invalid' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">{{'register.label_middlename' | translate}}</label>
+                                        <input type="text" name="middlename" [(ngModel)]="model.middlename" #middlename="ngModel" ngModel required class="form-control">
+                                    </div>
+                                    <div class="md-errors-spacer" [hidden]="middlename.valid || middlename.untouched">
+                                        <div *ngIf="f.submitted && middlename.errors && middlename.errors.required">
+                                            {{'register_error.middlename_required' | translate}}
+                                        </div>
+                                        <div *ngIf="f.submitted && middlename.errors && middlename.errors.pattern">
+                                            {{'register_error.middlename_invalid' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">{{'register.label_lastname' | translate}}</label>
+                                        <input type="text" name="lastname" [(ngModel)]="model.lastname" #lastname="ngModel" ngModel required class="form-control">
+                                    </div>
+                                    <div class="md-errors-spacer" [hidden]="lastname.valid || lastname.untouched">
+                                        <div *ngIf="f.submitted && lastname.errors && lastname.errors.required">
+                                            {{'register_error.lastname_required' | translate}}
+                                        </div>
+                                        <div *ngIf="f.submitted && lastname.errors && lastname.errors.pattern">
+                                            {{'register_error.lastname_invalid' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">{{'register.label_phonenumber' | translate}}</label>
+                                        <input type="text" name="phonenumber" [(ngModel)]="model.phonenumber" #phonenumber="ngModel" ngModel required
+                                               pattern="/^\+?\d{10}$/" class="form-control">
+                                    </div>
+                                    <div class="md-errors-spacer" [hidden]="phonenumber.valid || phonenumber.untouched">
+                                        <div *ngIf="f.submitted && phonenumber.errors && phonenumber.errors.required">
+                                            {{'register_error.phonenumber_required' | translate}}
+                                        </div>
+                                        <div *ngIf="f.submitted && phonenumber.errors && phonenumber.errors.pattern">
+                                            {{'register_error.phonenumber_invalid' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">{{'register.label_dateofbirth' | translate}}</label>
+                                        <input type="date" name="dateofbirth" [(ngModel)]="model.dateofbirth" #dateofbirth="ngModel" ngModel required
+                                               class="form-control">
+                                    </div>
+                                    <div class="md-errors-spacer" [hidden]="dateofbirth.valid || dateofbirth.untouched">
+                                        <div *ngIf="f.submitted && dateofbirth.errors && dateofbirth.errors.required">
+                                            {{'register_error.dateofbirth_required' | translate}}
+                                        </div>
+                                        <div *ngIf="f.submitted && dateofbirth.errors && dateofbirth.errors.pattern">
+                                            {{'register_error.dateofbirth_invalid' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">{{'register.label_password' | translate}}</label>
+                                        <input type="password" name="password" [(ngModel)]="model.password" #password="ngModel" ngModel required
+                                               pattern="/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,20}/" class="form-control">
+                                    </div>
+                                    <div class="md-errors-spacer" [hidden]="password.valid || password.untouched">
+                                        <div *ngIf="f.submitted && password.errors && password.errors.required">
+                                            {{'register_error.password_required' | translate}}
+                                        </div>
+                                        <div *ngIf="f.submitted && password.errors && password.errors.pattern">
+                                            {{'register_error.password_invalid' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">{{'register.label_passwordconfirmation' | translate}}</label>
+                                        <input type="password" name="passwordconfirmation" [(ngModel)]="model.passwordconfirmation" #passwordconfirmation="ngModel" ngModel required
+                                               pattern="/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,20}/" class="form-control">
+                                    </div>
+                                    <div class="md-errors-spacer" [hidden]="passwordconfirmation.valid || passwordconfirmation.untouched">
+                                        <div *ngIf="f.submitted && passwordconfirmation.errors && passwordconfirmation.errors.required">
+                                            {{'register_error.passwordconfirmation_required' | translate}}
+                                        </div>
+                                        <div *ngIf="f.submitted && passwordconfirmation.errors && passwordconfirmation.errors.pattern">
+                                            {{'register_error.passwordconfirmation_invalid' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" [disabled]="loading" class="btn btn-danger pull-right">{{'register.button_login_text' | translate}}</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

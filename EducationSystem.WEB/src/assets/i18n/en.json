@@ -1,15 +1,65 @@
 ﻿{
+  "api_account_errors": {
+    "user_notfound": "User was not found",
+    "user_alreadyexist": "Please, choose another email, user with this email already exists"
+  },
+
   "login": {
     "title": "Login",
     "subtitle": "Please, put your account information to login",
     "button_login_text": "Login",
     "label_email": "Email",
-    "label_password": "Password"
+    "label_password": "Password",
+    "label_passwordconfirmation": "Confirm password"
   },
   "login_error": {
     "email_required": "Email is required",
     "email_invalid": "Please, put valid information",
+
     "pass_required": "Password is required",
-    "pass_invalid": "Please, put valid password"
+    "pass_invalid": "Please, put valid password: use at least one alphabet, one number and length between 4 and 20 symbols",
+
+    "passwordconfirmation_required": "Please, confirm your password",
+    "passwordconfirmation_invalid": "Passwords do not match"
+  },
+
+  "register": {
+    "title": "Register",
+    "subtitle": "Please, put your personal information to create an account",
+    "button_login_text": "Register",
+    "label_email": "Email",
+    "label_firstname": "First name",
+    "label_middlename": "Middle name",
+    "label_lastname": "Last name",
+    "label_phonenumber": "Phone number",
+    "label_dateofbirth": "Date of birth",
+    "label_password": "Password",
+    "label_passwordconfirmation": "Confirm password"
+  },
+
+  "register_error": {
+    "email_required": "Email is required",
+    "email_invalid": "Please, put valid information",
+
+    "firstname_required": "First name is required",
+    "firstname_invalid": "Please, put valid information",
+
+    "middlename_required": "Middle name is required",
+    "middlename_invalid": "Please, put valid information",
+
+    "lastname_required": "Last name is required",
+    "lastname_invalid": "Please, put valid information",
+
+    "phonenumber_required": "Phone number is required",
+    "phonenumber_invalid": "Please, put valid format: '+0980000000' or '0980000000'",
+
+    "dateofbirth_required": "Date of birth is required",
+    "dateofbirth_invalid": "Please, put valid date format",
+
+    "password_required": "Password is required",
+    "password_invalid": "Please, put valid password: use at least one alphabet, one number and length between 4 and 20 symbols",
+
+    "passwordconfirmation_required": "Please, confirm your password",
+    "passwordconfirmation_invalid": "Passwords do not match"
   }
 }
