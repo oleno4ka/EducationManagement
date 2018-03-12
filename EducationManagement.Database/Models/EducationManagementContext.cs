@@ -24,17 +24,19 @@ namespace EducationManagement.Database.Models
         public virtual DbSet<TeacherSubject> TeacherSubject { get; set; }
         public virtual DbSet<Unit> Unit { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Role> IdentityUserRole { get; set; }
 
         // Unable to generate entity type for table 'dbo.SubjectLevelFile'. Please see the warning messages.
 
-        //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //        {
-        //            if (!optionsBuilder.IsConfigured)
-        //            {
-        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-        //                optionsBuilder.UseSqlServer(@"Server=DESKTOP-DC8DPTO;Database=EducationManagement;user id=sa;password=12345;Trusted_Connection=True;");
-        //            }
-        //        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer(@"Server=DESKTOP-DC8DPTO;Database=EducationManagementNew;user id=sa;password=12345;Trusted_Connection=True;");
+            }
+        }
 
         public EducationManagementContext(DbContextOptions<EducationManagementContext> options)
         : base(options)
@@ -94,15 +96,18 @@ namespace EducationManagement.Database.Models
                 entity.Property(e => e.Name).HasMaxLength(256);
             });
 
+            modelBuilder.Entity<Student>().HasBaseType<User>();
+
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
+            });
 
-                entity.HasOne(d => d.IdNavigation)
-                    .WithOne(p => p.Student)
-                    .HasForeignKey<Student>(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Student_User");
+            modelBuilder.Entity<Admin>().HasBaseType<User>();
+
+            modelBuilder.Entity<Admin>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<StudentGroup>(entity =>
@@ -245,15 +250,11 @@ namespace EducationManagement.Database.Models
                     .HasMaxLength(256);
             });
 
+            modelBuilder.Entity<Teacher>().HasBaseType<User>();
+
             modelBuilder.Entity<Teacher>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.HasOne(d => d.IdNavigation)
-                    .WithOne(p => p.Teacher)
-                    .HasForeignKey<Teacher>(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Teacher_User");
             });
 
             modelBuilder.Entity<TeacherGroup>(entity =>

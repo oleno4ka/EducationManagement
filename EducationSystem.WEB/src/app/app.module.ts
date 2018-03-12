@@ -11,7 +11,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ToasterModule, ToasterService } from 'angular2-toaster';
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
-
+import { TokenInterceptor } from "./_interceptors/token.interceptor";
 
 //components
 import { AppComponent } from './app.component';
@@ -31,7 +31,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { AuthenticationService } from "./_services/authentication.service";
 import { BaseTosterService } from "./_services/base-toaster.service";
 import { ArrayValuesPipe } from './_pipes/array-values.pipe';
-
+import { AuthGuard } from "./_guards/auth.guard";
 
 @NgModule({
   declarations: [
@@ -72,6 +72,12 @@ import { ArrayValuesPipe } from './_pipes/array-values.pipe';
       AuthenticationService,
       BaseTosterService,
       ToasterService,
+      {
+          provide: HTTP_INTERCEPTORS,
+          useClass: TokenInterceptor,
+          multi: true
+      },
+      AuthGuard
   ],
   bootstrap: [AppComponent]
 })

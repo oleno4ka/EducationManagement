@@ -6,8 +6,10 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using EducationManagement.Database.Models;
+using EducationManagement.Database.Models.Enums;
 using EducationSystem.Dal.Abstraction;
 using EducationSystem.Models.BindingModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -15,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace EducationSystem.Api.Controllers
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -37,6 +40,10 @@ namespace EducationSystem.Api.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody]LoginBindingModel model)
         {
+            if (model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError("Password", "register_error.passwordconfirmation_invalid");
+            }
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
             var user = await _unitOfWork.UserManager.FindByEmailAsync(model.Email);
             if (user == null)
@@ -79,6 +86,10 @@ namespace EducationSystem.Api.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody]RegisterBindingModel model)
         {
+            if(model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError("Password", "register_error.passwordconfirmation_invalid");
+            }
             if (!ModelState.IsValid) { return BadRequest("Could not create token"); }
             if (await _unitOfWork.UserManager.FindByNameAsync(model.Email) != null)
             {
@@ -86,16 +97,24 @@ namespace EducationSystem.Api.Controllers
             }
             else
             {
-                var user = new User {
+                var user = new Admin {
                     Email = model.Email,
+                    UserName = model.Email,
                     LastName = model.LastName,
                     FirstName = model.FirstName,
                     MiddleName = model.MiddleName,
                     DateOfBirth = model.DateOfBirth,
-                    PhoneNumber = model.PhoneNumber
+                    PhoneNumber = model.PhoneNumber,
+                    DateRegistered = DateTime.Now,
+                    RoleId = ((int)Roles.Admin).ToString()
                 };
-                var result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
-                if (!result.Succeeded) { return BadRequest("Could not create token"); }
+                try
+                {
+                    var result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
+                    if (!result.Succeeded) { return BadRequest("Could not create token"); }
+                
+               
+                
                 var claims = new[]
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType,user.Email),
@@ -114,6 +133,11 @@ namespace EducationSystem.Api.Controllers
                     signingCredentials: creds);
 
                 return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
+                }
+                catch (Exception e)
+                {
+                    return BadRequest("Error: "+e.Message + " inner:"+ e.InnerException?.Message);
+                }
             }
 
             return BadRequest("Could not create token");

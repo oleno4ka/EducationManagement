@@ -26,7 +26,7 @@
   "register": {
     "title": "Register",
     "subtitle": "Please, put your personal information to create an account",
-    "button_login_text": "Register",
+    "button_register_text": "Register",
     "label_email": "Email",
     "label_firstname": "First name",
     "label_middlename": "Middle name",

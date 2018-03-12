@@ -61,9 +61,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" [disabled]="loading" class="btn btn-danger pull-right">{{'login.button_login_text' | translate}}</button>
+                            <button type="submit" [disabled]="loading" class="btn btn-danger pull-left">{{'login.button_login_text' | translate}}</button>
+
                             <div class="clearfix"></div>
                         </form>
+                        <div>
+                            <p class="">Do not have an account yet?</p>
+                            <button [disabled]="loading" routerLink="/register" class="btn btn-danger pull-right">{{'register.button_register_text' | translate}}</button>
+                        </div>
                     </div>
                 </div>
             </div>

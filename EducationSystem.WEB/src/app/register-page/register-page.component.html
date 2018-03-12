@@ -154,7 +154,7 @@
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">{{'register.label_phonenumber' | translate}}</label>
                                         <input type="text" name="phonenumber" [(ngModel)]="model.phonenumber" #phonenumber="ngModel" ngModel required
-                                               pattern="/^\+?\d{10}$/" class="form-control">
+                                               pattern="^\+?\d{10}$" class="form-control">
                                     </div>
                                     <div class="md-errors-spacer" [hidden]="phonenumber.valid || phonenumber.untouched">
                                         <div *ngIf="f.submitted && phonenumber.errors && phonenumber.errors.required">
@@ -188,7 +188,7 @@
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">{{'register.label_password' | translate}}</label>
                                         <input type="password" name="password" [(ngModel)]="model.password" #password="ngModel" ngModel required
-                                               pattern="/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,20}/" class="form-control">
+                                               pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%\^*()_\-+=\[{\]};:|\./])[A-Za-z\d]{4,20}" class="form-control">
                                     </div>
                                     <div class="md-errors-spacer" [hidden]="password.valid || password.untouched">
                                         <div *ngIf="f.submitted && password.errors && password.errors.required">
@@ -205,7 +205,7 @@
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">{{'register.label_passwordconfirmation' | translate}}</label>
                                         <input type="password" name="passwordconfirmation" [(ngModel)]="model.passwordconfirmation" #passwordconfirmation="ngModel" ngModel required
-                                               pattern="/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,20}/" class="form-control">
+                                               pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%\^*()_\-+=\[{\]};:|\./])[A-Za-z\d]{4,20}" class="form-control">
                                     </div>
                                     <div class="md-errors-spacer" [hidden]="passwordconfirmation.valid || passwordconfirmation.untouched">
                                         <div *ngIf="f.submitted && passwordconfirmation.errors && passwordconfirmation.errors.required">
@@ -217,7 +217,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" [disabled]="loading" class="btn btn-danger pull-right">{{'register.button_login_text' | translate}}</button>
+                            <button type="submit" [disabled]="loading" class="btn btn-danger pull-right">{{'register.button_register_text' | translate}}</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

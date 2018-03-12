@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace EducationManagement.Database.Models
 {
-    public partial class Student
+    public partial class Student : User
     {
         public Student()
         {
@@ -11,10 +10,8 @@ namespace EducationManagement.Database.Models
             StudentTask = new HashSet<StudentTask>();
         }
 
-        public Guid Id { get; set; }
         public int GroupId { get; set; }
 
-        public User IdNavigation { get; set; }
         public ICollection<StudentGroup> StudentGroup { get; set; }
         public ICollection<StudentTask> StudentTask { get; set; }
     }

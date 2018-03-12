@@ -19,7 +19,7 @@ namespace EducationManagement.Database.Models
         public int ScoreMax { get; set; }
         public string Duration { get; set; }
         public string Description { get; set; }
-        public Guid CreatorId { get; set; }
+        public string CreatorId { get; set; }
         public bool CanReattend { get; set; }
         public int TaskTypeId { get; set; }
 
