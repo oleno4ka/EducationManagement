@@ -97,18 +97,39 @@ namespace EducationManagement.Database.Migrations
                     b.ToTable("Level");
                 });
 
+            modelBuilder.Entity("EducationManagement.Database.Models.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("RoleId");
+
+                    b.Property<string>("RoleId1");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId1");
+
+                    b.ToTable("Permission");
+                });
+
             modelBuilder.Entity("EducationManagement.Database.Models.Role", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("Id");
 
                     b.Property<string>("ConcurrencyStamp");
 
                     b.Property<bool>("IsManageable");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256);
 
-                    b.Property<string>("NormalizedName");
+                    b.Property<string>("NormalizedName")
+                        .IsRequired()
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
@@ -375,6 +396,27 @@ namespace EducationManagement.Database.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId");
+
+                    b.Property<Guid>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.ToTable("IdentityUserRole<Guid>");
+                });
+
+            modelBuilder.Entity("EducationManagement.Database.Models.Admin", b =>
+                {
+                    b.HasBaseType("EducationManagement.Database.Models.User");
+
+
+                    b.ToTable("Admin");
+
+                    b.HasDiscriminator().HasValue("Admin");
+                });
+
             modelBuilder.Entity("EducationManagement.Database.Models.Student", b =>
                 {
                     b.HasBaseType("EducationManagement.Database.Models.User");
@@ -411,6 +453,13 @@ namespace EducationManagement.Database.Migrations
                         .WithMany("Group")
                         .HasForeignKey("SubjectId", "LevelId")
                         .HasConstraintName("FK_Group_SubjectLevel");
+                });
+
+            modelBuilder.Entity("EducationManagement.Database.Models.Permission", b =>
+                {
+                    b.HasOne("EducationManagement.Database.Models.Role", "Role")
+                        .WithMany("Permissions")
+                        .HasForeignKey("RoleId1");
                 });
 
             modelBuilder.Entity("EducationManagement.Database.Models.StudentGroup", b =>

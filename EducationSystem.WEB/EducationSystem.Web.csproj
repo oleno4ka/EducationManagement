@@ -6,15 +6,20 @@
 
   <ItemGroup>
     <None Remove="src\app\app.service.ts" />
+    <None Remove="src\app\_enums\genders.ts" />
+    <None Remove="src\app\_enums\roles.ts" />
     <None Remove="src\app\_guards\auth.guard.ts" />
+    <None Remove="src\app\_guards\role.guard.ts" />
     <None Remove="src\app\_interceptors\token.interceptor.ts" />
+    <None Remove="src\app\_models\Role.ts" />
+    <None Remove="src\app\_models\User.ts" />
     <None Remove="src\app\_services\authentication.service.ts" />
     <None Remove="src\app\_services\base-toaster.service.ts" />
+    <None Remove="src\app\_services\permission.service.ts" />
+    <None Remove="src\app\_services\user.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="src\app\_models\" />
-    <Folder Include="src\app\_enums\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -27,10 +32,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="src\app\_enums\genders.ts" />
+    <TypeScriptCompile Include="src\app\_enums\roles.ts" />
+    <TypeScriptCompile Include="src\app\_guards\role.guard.ts" />
     <TypeScriptCompile Include="src\app\_guards\auth.guard.ts" />
     <TypeScriptCompile Include="src\app\_interceptors\token.interceptor.ts" />
+    <TypeScriptCompile Include="src\app\_models\User.ts" />
+    <TypeScriptCompile Include="src\app\_models\Role.ts" />
     <TypeScriptCompile Include="src\app\_services\authentication.service.ts" />
     <TypeScriptCompile Include="src\app\_services\base-toaster.service.ts" />
+    <TypeScriptCompile Include="src\app\_services\permission.service.ts" />
+    <TypeScriptCompile Include="src\app\_services\user.service.ts" />
   </ItemGroup>
 
 </Project>

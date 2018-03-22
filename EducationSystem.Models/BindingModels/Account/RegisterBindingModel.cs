@@ -6,8 +6,10 @@ namespace EducationSystem.Models.BindingModels
 {
     public class RegisterBindingModel
     {
+        [Required(ErrorMessage = "register_error.firstname_required")]
         public string FirstName { get; set; }
 
+        [Required(ErrorMessage = "register_error.lastname_required")]
         public string LastName { get; set; }
 
         public string MiddleName { get; set; }
@@ -30,5 +32,7 @@ namespace EducationSystem.Models.BindingModels
         [DataType(DataType.Password)]
         [RegularExpression(ValidationConstants.PasswordValidationString, ErrorMessage = "register_error.password_invalid")]
         public string ConfirmPassword { get; set; }
+
+        public string RoleId { get; set; }
     }
 }

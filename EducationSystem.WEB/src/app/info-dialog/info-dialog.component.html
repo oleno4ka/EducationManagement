@@ -1,0 +1,19 @@
+<div class="card">
+    <div class="card-header" data-background-color="orange">
+        <h4 class="title">{{ title | translate}}</h4>
+        <p class="category">{{ message | translate}}</p>
+    </div>
+    <div class="card-content table-responsive">
+        <md-dialog-content>
+            <p> {{ nextText | translate}}</p>
+        </md-dialog-content>
+        <md-dialog-actions align="right">
+            <button mat-button md-raised-button md-dialog-close (click)="onCloseClick()">{{ closeText | translate}}</button>
+            <button mat-button md-raised-button id="sm-next-button"
+                    (click)="dialogRef.close(true)">
+                {{ approveText | translate}}
+            </button>
+
+        </md-dialog-actions>
+    </div>
+</div>

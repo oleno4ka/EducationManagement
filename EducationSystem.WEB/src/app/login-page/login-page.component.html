@@ -32,7 +32,7 @@
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">{{'login.label_password' | translate}}</label>
                                         <input type="password" name="password" [(ngModel)]="model.password" #password="ngModel" ngModel required
-                                               pattern="/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,20}/" class="form-control">
+                                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{4,20}" class="form-control">
                                     </div>
                                     <div class="md-errors-spacer" [hidden]="password.valid || password.untouched">
                                         <div *ngIf="f.submitted && password.errors && password.errors.required">
@@ -48,14 +48,14 @@
                                 <div class="col-md-5">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">{{'login.label_passwordconfirmation' | translate}}</label>
-                                        <input type="password" name="passwordconfirmation" [(ngModel)]="model.passwordconfirmation" #passwordconfirmation="ngModel" ngModel required
-                                               pattern="/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,20}/" class="form-control">
+                                        <input type="password" name="confirmpassword" [(ngModel)]="model.confirmpassword" #confirmpassword="ngModel" ngModel required
+                                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{4,20}" class="form-control">
                                     </div>
-                                    <div class="md-errors-spacer" [hidden]="passwordconfirmation.valid || passwordconfirmation.untouched">
-                                        <div *ngIf="f.submitted && passwordconfirmation.errors && passwordconfirmation.errors.required">
+                                    <div class="md-errors-spacer" [hidden]="confirmpassword.valid || confirmpassword.untouched">
+                                        <div *ngIf="f.submitted && confirmpassword.errors && confirmpassword.errors.required">
                                             {{'login_error.passwordconfirmation_required' | translate}}
                                         </div>
-                                        <div *ngIf="f.submitted && passwordconfirmation.errors && passwordconfirmation.errors.pattern">
+                                        <div *ngIf="f.submitted && confirmpassword.errors && confirmpassword.errors.pattern">
                                             {{'login_error.passwordconfirmation_invalid' | translate}}
                                         </div>
                                     </div>

@@ -14,10 +14,28 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
 import { AuthGuard } from "./_guards/auth.guard";
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { RoleGuard } from 'app/_guards/role.guard';
+import { Roles } from 'app/_enums/roles';
+import { UsersListComponent } from 'app/users-list/users-list.component';
 
 const routes: Routes =[
-    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-    { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard]},
+    {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [RoleGuard],
+        data: {
+            expectedRole: Roles.Admin.toString()
+        }
+    },
+    { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
+    {
+        path: 'users',
+        component: UsersListComponent,
+        canActivate: [RoleGuard],
+        data: {
+            expectedRole: Roles.Admin.toString()
+        }
+    },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },

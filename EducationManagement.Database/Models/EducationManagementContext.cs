@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -332,6 +333,24 @@ namespace EducationManagement.Database.Models
 
                 entity.Property(e => e.PhoneNumber).HasMaxLength(256);
             });
+
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.IsManageable)
+                    .IsRequired();
+            });
+
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasKey(p => new { p.UserId, p.RoleId });
         }
     }
 }

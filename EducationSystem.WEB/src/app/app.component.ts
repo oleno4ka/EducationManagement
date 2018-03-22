@@ -8,6 +8,9 @@ import PerfectScrollbar from 'perfect-scrollbar';
 import { TranslateService } from '@ngx-translate/core'
 import { BaseTosterService } from './_services/base-toaster.service'
 
+import * as moment from 'moment';
+import { ToasterService, ToasterConfig } from 'angular2-toaster';
+
 declare const $: any;
 
 @Component({
@@ -19,18 +22,23 @@ export class AppComponent implements OnInit {
     private _router: Subscription;
     private lastPoppedUrl: string;
     private yScrollStack: number[] = [];
-    baseToasterConfig: {};
+    public config: ToasterConfig = new ToasterConfig({
+        showCloseButton: true,
+        tapToDismiss: false,
+        timeout: 0
+    });
     private translate: TranslateService;
+    private toasterService: ToasterService;
 
     @ViewChild(NavbarComponent) navbar: NavbarComponent;
 
-    constructor(public location: Location, private router: Router, translate: TranslateService, private tosterService: BaseTosterService) {
+    constructor(public location: Location, private router: Router, translate: TranslateService, toasterService: ToasterService) {
         // this language will be used as a fallback when a translation isn't found in the current language
         this.translate = translate;
         this.translate.setDefaultLang('en');
         // the lang to use, if the lang isn't available, it will use the current loader to get them
         this.translate.use('en');
-        this.baseToasterConfig = this.tosterService.baseToasterConfig;
+        this.toasterService = toasterService;
     }
 
     ngOnInit() {

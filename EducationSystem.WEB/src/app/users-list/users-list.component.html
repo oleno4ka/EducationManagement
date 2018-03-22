@@ -1,0 +1,37 @@
+<div class="card">
+    <div class="card-header" data-background-color="orange">
+        <h4 class="title">{{'dashboard.userslist_title' | translate}}</h4>
+        <p class="category">{{'dashboard.userslist_subtitle' | translate}}</p>
+    </div>
+    <div class="card-content table-responsive">
+        <table class="table table-hover">
+            <thead class="text-warning">
+                <tr>
+                    <th>{{'userstable.col_Id' | translate}}</th>
+                    <th>{{'userstable.col_Email' | translate}}</th>
+                    <th>{{'userstable.col_Role' | translate}}</th>
+                    <th>{{'userstable.col_DateRegistered' | translate}}</th>
+                    <th>{{'userstable.col_Name' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{user.id}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.Role}}</td>
+                    <td>{{user.DateRegisteredString}}</td>
+                    <td>{{user.FullNameString}}</td>
+                    <td class="td-actions text-right">
+                        <button type="button" rel="tooltip" title="Edit Task" (click)="editUserDialogOpen(user)" class="btn btn-primary btn-simple btn-xs">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" rel="tooltip" mat-raised-button title="Remove" (click)="removeUserDialogOpen(user.id, user.fullName)" class="btn btn-danger btn-simple btn-xs">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

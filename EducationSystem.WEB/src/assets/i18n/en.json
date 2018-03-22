@@ -32,6 +32,7 @@
     "label_middlename": "Middle name",
     "label_lastname": "Last name",
     "label_phonenumber": "Phone number",
+    "label_roleId": "Role",
     "label_dateofbirth": "Date of birth",
     "label_password": "Password",
     "label_passwordconfirmation": "Confirm password"
@@ -53,6 +54,9 @@
     "phonenumber_required": "Phone number is required",
     "phonenumber_invalid": "Please, put valid format: '+0980000000' or '0980000000'",
 
+    "roleId_required": "Role is required",
+    "roleId_invalid": "Please, put valid format'",
+
     "dateofbirth_required": "Date of birth is required",
     "dateofbirth_invalid": "Please, put valid date format",
 
@@ -61,5 +65,69 @@
 
     "passwordconfirmation_required": "Please, confirm your password",
     "passwordconfirmation_invalid": "Passwords do not match"
+  },
+
+  "navbar_right": {
+    "button_my_profile": "My profile"
+  },
+
+  "datatype_error": {
+    "imageurl_invalid": "Invalid image url."
+  },
+
+  "profile": {
+    "title": "Edit Profile",
+    "subtitle": "Please, put your personal information to edit an account",
+    "button_edit_text": "Save",
+    "button_editProfilePicture_text": "Upload Picture",
+    "label_firstName": "First name",
+    "label_middleName": "Middle name",
+    "label_lastName": "Last name",
+    "label_phoneNumber": "Phone number",
+    "label_dateOfBirth": "Date of birth"
+  },
+
+  "profile_error": {
+    "firstName_required": "First name is required",
+    "firstName_invalid": "Please, put valid information",
+
+    "middleName_required": "Middle name is required",
+    "middleName_invalid": "Please, put valid information",
+
+    "lastName_required": "Last name is required",
+    "lastName_invalid": "Please, put valid information",
+
+    "phoneNumber_required": "Phone number is required",
+    "phoneNumber_invalid": "Please, put valid format: '+0980000000' or '0980000000'",
+
+    "dateOfBirth_required": "Date of birth is required",
+    "dateOfBirth_invalid": "Please, put valid date format"
+  },
+
+  "dashboard": {
+    "userslist_title": "Users",
+    "userslist_subtitle": "All users list"
+  },
+  "userstable": {
+    "col_Id": "ID",
+    "col_Email": "Email",
+    "col_Role": "Role",
+    "col_DateRegistered": "Date registered",
+    "col_Name": "Name"
+  },
+
+  "dialog": {
+    "remove_user": {
+      "title": "Remove user",
+      "message": "Do you really want to remove user?",
+      "close_text": "No",
+      "approveText": "Yes"
+    },
+    "edit_user": {
+      "title": "Edit user",
+      "message": "Edit profile information.",
+      "close_text": "Close",
+      "approveText": "Save"
+    }
   }
 }

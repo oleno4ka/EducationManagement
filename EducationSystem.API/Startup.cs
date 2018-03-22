@@ -52,10 +52,7 @@ namespace EducationSystem.API
 
             services.AddMvc();
 
-           // var connection = @"Server=DESKTOP-DC8DPTO;Database=EducationManagementNew;user id=sa;password=12345;Trusted_Connection=True;";
             services.AddDbContext<EducationManagementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TestingConnectionString")));
-            //services.AddDbContext<EducationManagementContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //services.AddIdentity<User, IdentityRole>()
             //    .AddEntityFrameworkStores<EducationManagementContext>()
@@ -65,9 +62,7 @@ namespace EducationSystem.API
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder
-
-                    .WithOrigins("http://localhost:3000")
-
+                    .WithOrigins("http://localhost:4200")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());

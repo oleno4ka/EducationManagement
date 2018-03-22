@@ -8,6 +8,7 @@ namespace EducationSystem.Dal.Abstraction
     {
         UserManager<User> UserManager { get; }
         SignInManager<User> SignInManager { get; }
+        RoleManager<Role> RoleManager { get; }
         Task<int> Save();
     }
 }

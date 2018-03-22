@@ -1,0 +1,106 @@
+<!--<form #f="ngForm" (ngSubmit)="edit()" novalidate>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-black label-floating is-empty" [class.is-focused]="model.firstName">
+                <label class="control-label">{{'profile.label_firstName' | translate}}</label>
+                <input type="text" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required class="form-control">
+            </div>
+            <div class="md-errors-spacer" [hidden]="firstName.valid || firstName.untouched">
+                <div *ngIf="f.submitted && firstName.errors && firstName.errors.required">
+                    {{'profile_error.firstName_required' | translate}}
+                </div>
+                <div *ngIf="f.submitted && firstName.errors && firstName.errors.pattern">
+                    {{'profile_error.firstName_invalid' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-black label-floating is-empty" [class.is-focused]="model.middleName">
+                <label class="control-label">{{'profile.label_middleName' | translate}}</label>
+                <input type="text" name="middleName" [(ngModel)]="model.middleName" #middleName="ngModel" ngModel required class="form-control">
+            </div>
+            <div class="md-errors-spacer" [hidden]="middleName.valid || middleName.untouched">
+                <div *ngIf="f.submitted && middleName.errors && middleName.errors.required">
+                    {{'profile_error.middleName_required' | translate}}
+                </div>
+                <div *ngIf="f.submitted && middleName.errors && middleName.errors.pattern">
+                    {{'profile_error.middleName_invalid' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-black label-floating is-empty" [class.is-focused]="model.lastName">
+                <label class="control-label">{{'profile.label_lastName' | translate}}</label>
+                <input type="text" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" ngModel required class="form-control">
+            </div>
+            <div class="md-errors-spacer" [hidden]="lastName.valid || lastName.untouched">
+                <div *ngIf="f.submitted && lastName.errors && lastName.errors.required">
+                    {{'profile_error.lastName_required' | translate}}
+                </div>
+                <div *ngIf="f.submitted && lastName.errors && lastName.errors.pattern">
+                    {{'profile_error.lastName_invalid' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-black label-floating is-empty" [class.is-focused]="model.phoneNumber">
+                <label class="control-label">{{'profile.label_phoneNumber' | translate}}</label>
+                <input type="text" name="phoneNumber" [(ngModel)]="model.phoneNumber" #phoneNumber="ngModel" ngModel required
+                       pattern="^\+?\d{10}$" class="form-control">
+            </div>
+            <div class="md-errors-spacer" [hidden]="phoneNumber.valid || phoneNumber.untouched">
+                <div *ngIf="f.submitted && phoneNumber.errors && phoneNumber.errors.required">
+                    {{'profile_error.phoneNumber_required' | translate}}
+                </div>
+                <div *ngIf="f.submitted && phoneNumber.errors && phoneNumber.errors.pattern">
+                    {{'profile_error.phoneNumber_invalid' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-black label-floating is-empty" [class.is-focused]="true">
+                <label class="control-label">{{'profile.label_dateOfBirth' | translate}}</label>
+                <input type="date" name="dateOfBirth" [ngModel]="model.dateOfBirth| date:'yyyy-MM-dd'" (ngModelChange)="model.dateOfBirth = $event"
+                       [value]="date| date:'yyyy-MM-dd'"
+                       #dateOfBirth="ngModel" ngModel required
+                       class="form-control">
+            </div>
+            <div class="md-errors-spacer" [hidden]="dateOfBirth.valid || dateOfBirth.untouched">
+                <div *ngIf="f.submitted && dateOfBirth.errors && dateOfBirth.errors.required">
+                    {{'profile_error.dateOfBirth_required' | translate}}
+                </div>
+                <div *ngIf="f.submitted && dateOfBirth.errors && dateOfBirth.errors.pattern">
+                    {{'profile_error.dateOfBirth_invalid' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-black label-floating is-empty">
+                <label class="control-label">{{'register.label_roleId' | translate}}</label>
+                <ng-select [options]="myOptions" name="roleId" #roleId="ngModel" ngModel [(ngModel)]="model.roleId" class="form-control">
+                </ng-select>
+            </div>
+            <div class="md-errors-spacer" [hidden]="roleId.valid || roleId.untouched">
+                <div *ngIf="f.submitted && roleId.errors && roleId.errors.required">
+                    {{'register_error.roleId_required' | translate}}
+                </div>
+                <div *ngIf="f.submitted && roleId.errors && roleId.errors.pattern">
+                    {{'register_error.roleId_invalid' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" [disabled]="loading" class="btn btn-danger pull-right">{{'profile.button_edit_text' | translate}}</button>
+    <div class="clearfix" *ngIf="successMessage"> Changes were successfully saved.</div>
+</form>-->

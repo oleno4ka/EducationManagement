@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { AuthGuard } from 'app/_guards/auth.guard';
+import { AuthenticationService } from 'app/_services/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,16 +14,26 @@ export class NavbarComponent implements OnInit {
     location: Location;
     private toggleButton: any;
     private sidebarVisible: boolean;
+    private authGuard: AuthGuard;
+    private authenticationService: AuthenticationService;
+    loginText: string;// = this.authGuard && this.authGuard.isAuthenticated ? "Log off" : "Log in";
 
-    constructor(location: Location,  private element: ElementRef) {
+    constructor(location: Location, private element: ElementRef, private _authGuard: AuthGuard, private _authenticationService: AuthenticationService) {
       this.location = location;
-          this.sidebarVisible = false;
+      this.sidebarVisible = false;
+      this.authGuard = _authGuard;
+      this.authenticationService = _authenticationService;
     }
 
     ngOnInit(){
       this.listTitles = ROUTES.filter(listTitle => listTitle);
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
+      if (this.authGuard.isAuthenticated) {
+          this.loginText = "Log off"
+      } else {
+          this.loginText = "Log in";
+      }
     }
 
     sidebarOpen() {
@@ -41,8 +53,6 @@ export class NavbarComponent implements OnInit {
         body.classList.remove('nav-open');
     };
     sidebarToggle() {
-        // const toggleButton = this.toggleButton;
-        // const body = document.getElementsByTagName('body')[0];
         if (this.sidebarVisible === false) {
             this.sidebarOpen();
         } else {
@@ -63,5 +73,13 @@ export class NavbarComponent implements OnInit {
           }
       }
       return 'Dashboard';
-    }
+    };
+
+    public logOut() {
+        if (this.authGuard.isAuthenticated) {
+            this.authenticationService.logout();
+        } else {
+            //this.loginText = "Log in";
+        }
+    };
 }

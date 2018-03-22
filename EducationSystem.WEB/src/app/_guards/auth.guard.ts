@@ -2,7 +2,8 @@
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { Headers, RequestOptions, RequestOptionsArgs } from '@angular/http';
-
+import { Roles } from 'app/_enums/roles';
+import decode from 'jwt-decode';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -13,21 +14,26 @@ export class AuthGuard implements CanActivate {
 
     public get userId(): string { return this.currentUser !== null ? this.currentUser.id : null }
 
+    public get userRoleId(): string { return (this.currentUser !== null && this.currentUser.token !== null) ? this.currentUser.token.roleid : null }
+
     public get token(): string { return this.currentUser !== null ? this.currentUser.token : null }
 
     get isAuthenticated(): boolean { return this.token !== null };
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        const expectedRole = route.data.expectedRole;
+
         if (this.isAuthenticated) {
             // logged in so return true
+            console.log(this.currentUser);
         }
         else {
             // not logged in so redirect to login page with the return url
             this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         }
         return this.isAuthenticated;
-    }
 
+    }
     //public jwt() {
     //  // create authorization header with jwt token
     //  if (this.currentUser && this.currentUser.token) {

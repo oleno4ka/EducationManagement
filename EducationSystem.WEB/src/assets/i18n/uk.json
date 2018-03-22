@@ -1,0 +1,106 @@
+﻿{
+    "api_account_errors": {
+        "user_notfound": "Користувача не знайдено",
+        "user_alreadyexist": "Будь ласка, виберіть інший електронний лист, користувач із цим електронним листом вже існує"
+  },
+
+    "login": {
+        "title": "Вхід",
+        "subtitle": "Будь ласка, введіть дані облікового запису, щоб увійти",
+        "button_login_text": "Вхід",
+        "label_email": "Електронна пошта",
+        "label_password": "Пароль",
+        "label_passwordconfirmation": "Підтвердити пароль"
+  },
+    "login_error": {
+    "email_required": "Електронна адреса обов'язкова",
+    "email_invalid": "Будь ласка, введіть дійсну інформацію",
+
+    "pass_required": "Необхідний пароль",
+    "pass_invalid": "Будь ласка, введіть дійсний пароль: використовуйте щонайменше один алфавіт, один номер і довжина від 4 до 20 символів",
+
+    "passwordconfirmation_required": "Будь ласка, підтвердіть свій пароль",
+    "passwordconfirmation_invalid": "Паролі не збігаються"
+  },
+
+    "register": {
+        "title": "Зареєструватися",
+        "subtitle": "Будь ласка, введіть свою особисту інформацію, щоб створити обліковий запис",
+        "button_register_text": "Зареєструватися",
+        "label_email": "Електронна пошта",
+        "label_firstname": "Ім'я",
+        "label_middlename": "Середнє ім'я",
+        "label_lastname": "Прізвище",
+        "label_phonenumber": "Номер телефону",
+        "label_roleId": "Роль",
+        "label_dateofbirth": "Дата народження",
+        "label_password": "Пароль",
+        "label_passwordconfirmation": "Підтвердити пароль"
+  },
+
+    "register_error": {
+        "email_required": "Потрібен електронний лист",
+        "email_invalid": "Будь ласка, введіть дійсну інформацію",
+
+        "firstname_required": "Ім'я обов'язкове",
+        "firstname_invalid": "Будь ласка, поставте дійсну інформацію",
+
+        "middlename_required": "Потрібне середнє ім'я",
+        "middlename_invalid": "Будь ласка, поставте дійсну інформацію",
+
+        "lastname_required": "Прізвище обов'язкове",
+        "lastname_invalid": "Будь ласка, введіть дійсну інформацію",
+
+        "phonenumber_required": "Необхідний номер телефону",
+        "phonenumber_invalid": "Будь ласка, введіть правильний формат:' +0980000000 'або' 0980000000'",
+
+        "roleId_required": "Роль обов'язкова",
+        "roleId_invalid": "Будь ласка, поставте правильний формат",
+
+        "dateofbirth_required": "Необхідно вказати дату народження",
+        "dateofbirth_invalid": "Будь ласка, введіть дійсний формат дати",
+
+        "password_required": "Пароль обов'язковий",
+        "password_invalid": "Будь ласка, введіть дійсний пароль: використовуйте щонайменше один алфавіт, один номер і довжина від 4 до 20 символів",
+
+        "passwordconfirmation_required": "Будь ласка, підтвердіть свій пароль",
+        "passwordconfirmation_invalid": "Паролі не збігаються"
+  },
+
+    "navbar_right": {
+        "button_my_profile": "Мій профіль"
+  },
+
+    "datatype_error": {
+        "imageurl_invalid": "Неправильний URL-адреса зображення"
+  },
+
+    "profile": {
+        "title": "Редагувння профілю",
+        "subtitle": "Будь ласка, введіть свою особисту інформацію, щоб редагувати обліковий запис",
+        "button_edit_text": "Зберегти",
+        "button_editProfilePicture_text": "Завантажити зображення",
+        "label_firstName": "Ім'я",
+        "label_middleName": "Середнє ім'я",
+        "label_lastName": "Прізвище",
+        "label_phoneNumber": "Номер телефону",
+        "label_dateOfBirth": "Дата народження"
+  },
+
+    "profile_error": {
+        "firstName_required": "Ім'я потрібно",
+        "firstName_invalid": "Будь ласка, введіть дійсну інформацію",
+
+        "middleName_required": "Потрібне середнє ім'я",
+        "middleName_invalid": "Будь ласка, поставте дійсну інформацію",
+
+        "lastName_required": "Прізвище обов'язкове",
+        "lastName_invalid": "Будь ласка, поставте дійсну інформацію",
+
+       "phoneNumber_required": "Необхідний номер телефону",
+       "phoneNumber_invalid": "Будь ласка, введіть дійсний формат:' +0980000000 'або' 0980000000 '",
+
+        "dateOfBirth_required": "Дата народження потрібна",
+        "dateOfBirth_invalid": "Будь ласка, введіть дійсний формат дати"
+  }
+}

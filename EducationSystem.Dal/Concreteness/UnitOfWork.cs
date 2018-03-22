@@ -10,11 +10,13 @@ namespace EducationSystem.Dal.Concreteness
     {
         private readonly EducationManagementContext _context;
 
-        public UnitOfWork(EducationManagementContext context, UserManager<User> userManager, SignInManager<User> signInManager)
+        public UnitOfWork(EducationManagementContext context, UserManager<User> userManager, SignInManager<User> signInManager
+            , RoleManager<Role> roleManager)
         {
             _context = context;
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
         }
 
         private IUsersRepository _usersRepository;
@@ -32,6 +34,8 @@ namespace EducationSystem.Dal.Concreteness
         }
 
         public UserManager<User> UserManager { get; }
+
+        public RoleManager<Role> RoleManager { get; }
 
         public SignInManager<User> SignInManager { get; }
 

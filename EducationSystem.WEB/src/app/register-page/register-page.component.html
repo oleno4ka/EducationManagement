@@ -1,77 +1,3 @@
-<!--<p>
-  register-page works!
-</p>-->
-<!--<form #f="ngForm" (ngSubmit)="register()" novalidate>
-    <div class="fieldWrap">
-        <h1>Account Info</h1>
-        <h5>These fields are required</h5>
-        <hr>
-        <div class="row">
-            <div class="col-xs-6">
-                <p class="boldLables text-right">Name: </p>
-            </div>
-            <div class="col-xs-6">
-                <input type="text" name="name" [(ngModel)]="model.name" #name="ngModel" ngModel required />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-6">
-                <p class="boldLables text-right">Last Name: </p>
-            </div>
-            <div class="col-xs-6">
-                <input type="text" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" ngModel required />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-6">
-                <p class="boldLables text-right">Email: </p>
-            </div>
-            <div class="col-xs-6">
-                <input type="text" name="mail" placeholder="Email@somewhere.yeah" [(ngModel)]="model.email" #email="ngModel" ngModel required />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-6">
-                <p class="boldLables text-right">Password: </p>
-            </div>
-            <div class="col-xs-6">
-                <input type="password" name="pass" placeholder="Make this super secret" [(ngModel)]="model.password" #password="ngModel" ngModel required />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-6">
-                <p class="boldLables text-right">Repeat Password: </p>
-            </div>
-            <div class="col-xs-6">
-                <input type="password" name="repPass" placeholder="Not [password1234]">
-            </div>
-        </div>
-    </div>
-    <div class="fieldWrap">
-        <h1>Profile Details</h1>
-        <hr>
-        <div class="row">
-            <div class="col-xs-6">
-                <p class="boldLables text-right">Gender: </p>
-            </div>
-            <div class="col-xs-6">
-                <input type="radio" name="gender" value="male"> Male<br>
-                <input type="radio" name="gender" value="female"> Female<br>
-                <input type="radio" name="gender" value="other"> Other
-                <input id="customGenderTextField" type="text" name="otherGender" placeholder="Custom gender">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-6">
-                <p class="boldLables text-right">Date of birth: </p>
-            </div>
-            <div class="col-xs-6">
-                <input type="password" name="birth" placeholder="dd/mm/yyyy">
-            </div>
-        </div>
-    </div>
-    <button class="btn-default btn_custom center-block" type="submit">Register</button>
-</form>-->
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
@@ -166,11 +92,32 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">{{'register.label_roleId' | translate}}</label>
+                                        <ng-select [options]="myOptions" name="roleId" #roleId="ngModel" ngModel [(ngModel)]="model.roleId" class="form-control">
+                                        </ng-select>
+                                    </div>
+                                    <div class="md-errors-spacer" [hidden]="roleId.valid || roleId.untouched">
+                                        <div *ngIf="f.submitted && roleId.errors && roleId.errors.required">
+                                            {{'register_error.roleId_required' | translate}}
+                                        </div>
+                                        <div *ngIf="f.submitted && roleId.errors && roleId.errors.pattern">
+                                            {{'register_error.roleId_invalid' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty" [class.is-focused]="true">
                                         <label class="control-label">{{'register.label_dateofbirth' | translate}}</label>
-                                        <input type="date" name="dateofbirth" [(ngModel)]="model.dateofbirth" #dateofbirth="ngModel" ngModel required
+                                        <input type="date" name="dateofbirth" [ngModel]="model.dateofbirth| date:'yyyy-MM-dd'" 
+                                               (ngModelChange)="model.dateofbirth = $event" [value]="date| date:'yyyy-MM-dd'"
+                                               #dateofbirth="ngModel" ngModel required
                                                class="form-control">
                                     </div>
                                     <div class="md-errors-spacer" [hidden]="dateofbirth.valid || dateofbirth.untouched">
@@ -204,14 +151,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-black label-floating is-empty">
                                         <label class="control-label">{{'register.label_passwordconfirmation' | translate}}</label>
-                                        <input type="password" name="passwordconfirmation" [(ngModel)]="model.passwordconfirmation" #passwordconfirmation="ngModel" ngModel required
+                                        <input type="password" name="confirmpassword" [(ngModel)]="model.confirmpassword" #confirmpassword="ngModel" ngModel required
                                                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%\^*()_\-+=\[{\]};:|\./])[A-Za-z\d]{4,20}" class="form-control">
                                     </div>
-                                    <div class="md-errors-spacer" [hidden]="passwordconfirmation.valid || passwordconfirmation.untouched">
-                                        <div *ngIf="f.submitted && passwordconfirmation.errors && passwordconfirmation.errors.required">
+                                    <div class="md-errors-spacer" [hidden]="confirmpassword.valid || confirmpassword.untouched">
+                                        <div *ngIf="f.submitted && confirmpassword.errors && confirmpassword.errors.required">
                                             {{'register_error.passwordconfirmation_required' | translate}}
                                         </div>
-                                        <div *ngIf="f.submitted && passwordconfirmation.errors && passwordconfirmation.errors.pattern">
+                                        <div *ngIf="f.submitted && confirmpassword.errors && confirmpassword.errors.pattern">
                                             {{'register_error.passwordconfirmation_invalid' | translate}}
                                         </div>
                                     </div>

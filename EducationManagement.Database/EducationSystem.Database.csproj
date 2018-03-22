@@ -355,6 +355,10 @@
     <Compile Include="Migrations\20180308135109_initial.designer.cs">
       <DependentUpon>20180308135109_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20180316161959_Permissiions.cs" />
+    <Compile Include="Migrations\20180316161959_Permissiions.designer.cs">
+      <DependentUpon>20180316161959_Permissiions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\EducationManagementContextModelSnapshot.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\EducationManagementContext.cs" />
@@ -362,6 +366,7 @@
     <Compile Include="Models\Enums\Attributes\MappedEntityPropertyAttributecs.cs" />
     <Compile Include="Models\Enums\Attributes\MapToEntityTypeAttribute.cs" />
     <Compile Include="Models\Enums\Roles.cs" />
+    <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\SubjectLevelFile.cs" />
     <Compile Include="Models\File.cs" />

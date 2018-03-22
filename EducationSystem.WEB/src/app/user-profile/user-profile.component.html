@@ -4,91 +4,99 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header" data-background-color="red">
-                    <h4 class="title">Edit Profile</h4>
-                    <p class="category">Complete your profile</p>
+                    <h4 class="title">{{'profile.title' | translate}}</h4>
+                    <p class="category">{{'profile.subtitle' | translate}}</p>
                 </div>
                 <div class="card-content">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Company (disabled)</label>
-                                    <input type="text" class="form-control" disabled>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Username</label>
-                                    <input type="text" class="form-control" >
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Email address</label>
-                                    <input type="email" class="form-control" >
-                                </div>
-                            </div>
-                        </div>
-
+                    <form #f="ngForm" (ngSubmit)="edit()" novalidate>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Fist Name</label>
-                                    <input type="text" class="form-control" >
+                                <div class="form-group form-black label-floating is-empty" [class.is-focused]="model.firstName">
+                                    <label class="control-label">{{'profile.label_firstName' | translate}}</label>
+                                    <input type="text" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required class="form-control">
+                                </div>
+                                <div class="md-errors-spacer" [hidden]="firstName.valid || firstName.untouched">
+                                    <div *ngIf="f.submitted && firstName.errors && firstName.errors.required">
+                                        {{'profile_error.firstName_required' | translate}}
+                                    </div>
+                                    <div *ngIf="f.submitted && firstName.errors && firstName.errors.pattern">
+                                        {{'profile_error.firstName_invalid' | translate}}
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Last Name</label>
-                                    <input type="text" class="form-control" >
+                                <div class="form-group form-black label-floating is-empty" [class.is-focused]="model.middleName">
+                                    <label class="control-label">{{'profile.label_middleName' | translate}}</label>
+                                    <input type="text" name="middleName" [(ngModel)]="model.middleName" #middleName="ngModel" ngModel required class="form-control">
+                                </div>
+                                <div class="md-errors-spacer" [hidden]="middleName.valid || middleName.untouched">
+                                    <div *ngIf="f.submitted && middleName.errors && middleName.errors.required">
+                                        {{'profile_error.middleName_required' | translate}}
+                                    </div>
+                                    <div *ngIf="f.submitted && middleName.errors && middleName.errors.pattern">
+                                        {{'profile_error.middleName_invalid' | translate}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Adress</label>
-                                    <input type="text" class="form-control" >
+                            <div class="col-md-6">
+                                <div class="form-group form-black label-floating is-empty" [class.is-focused]="model.lastName">
+                                    <label class="control-label">{{'profile.label_lastName' | translate}}</label>
+                                    <input type="text" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" ngModel required class="form-control">
+                                </div>
+                                <div class="md-errors-spacer" [hidden]="lastName.valid || lastName.untouched">
+                                    <div *ngIf="f.submitted && lastName.errors && lastName.errors.required">
+                                        {{'profile_error.lastName_required' | translate}}
+                                    </div>
+                                    <div *ngIf="f.submitted && lastName.errors && lastName.errors.pattern">
+                                        {{'profile_error.lastName_invalid' | translate}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">City</label>
-                                    <input type="text" class="form-control" >
+                            <div class="col-md-6">
+                                <div class="form-group form-black label-floating is-empty" [class.is-focused]="model.phoneNumber">
+                                    <label class="control-label">{{'profile.label_phoneNumber' | translate}}</label>
+                                    <input type="text" name="phoneNumber" [(ngModel)]="model.phoneNumber" #phoneNumber="ngModel" ngModel required
+                                           pattern="^\+?\d{10}$" class="form-control">
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Country</label>
-                                    <input type="text" class="form-control" >
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Postal Code</label>
-                                    <input type="text" class="form-control" >
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>About Me</label>
-                                    <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                                        <textarea class="form-control" rows="5"></textarea>
+                                <div class="md-errors-spacer" [hidden]="phoneNumber.valid || phoneNumber.untouched">
+                                    <div *ngIf="f.submitted && phoneNumber.errors && phoneNumber.errors.required">
+                                        {{'profile_error.phoneNumber_required' | translate}}
+                                    </div>
+                                    <div *ngIf="f.submitted && phoneNumber.errors && phoneNumber.errors.pattern">
+                                        {{'profile_error.phoneNumber_invalid' | translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-danger pull-right">Update Profile</button>
-                        <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-black label-floating is-empty" [class.is-focused]="true">
+                                    <label class="control-label">{{'profile.label_dateOfBirth' | translate}}</label>
+                                    <input type="date" name="dateOfBirth" [ngModel]="model.dateOfBirth| date:'yyyy-MM-dd'" (ngModelChange)="model.dateOfBirth = $event"
+                                           [value]="date| date:'yyyy-MM-dd'"
+                                           #dateOfBirth="ngModel" ngModel required
+                                           class="form-control">
+                                </div>
+                                <div class="md-errors-spacer" [hidden]="dateOfBirth.valid || dateOfBirth.untouched">
+                                    <div *ngIf="f.submitted && dateOfBirth.errors && dateOfBirth.errors.required">
+                                        {{'profile_error.dateOfBirth_required' | translate}}
+                                    </div>
+                                    <div *ngIf="f.submitted && dateOfBirth.errors && dateOfBirth.errors.pattern">
+                                        {{'profile_error.dateOfBirth_invalid' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" [disabled]="loading" class="btn btn-danger pull-right">{{'profile.button_edit_text' | translate}}</button>
+                        <div class="clearfix" *ngIf="successMessage"> Changes were successfully saved.</div>
                     </form>
                 </div>
             </div>
@@ -102,12 +110,12 @@
                 </div>
 
                 <div class="content">
-                    <h6 class="category text-gray">CEO / Co-Founder</h6>
-                    <h4 class="card-title">Alec Thompson</h4>
+                    <h6 class="category text-gray">{{model.Role}}</h6>
+                    <h4 class="card-title">{{model.FullNameString}}</h4>
                     <p class="card-content">
                         Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
                     </p>
-                    <a href="#pablo" class="btn btn-danger btn-round">Follow</a>
+                    <a href="#pablo" class="btn btn-danger btn-round">{{'profile.button_editProfilePicture_text' | translate}}</a>
                 </div>
             </div>
         </div>

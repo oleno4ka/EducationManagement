@@ -52,7 +52,8 @@ namespace EducationSystem.Api.Controllers
             }
             else
             {
-                var roles = await _unitOfWork.UserManager.GetRolesAsync(user);
+                var roles = _unitOfWork.RoleManager.Roles;
+                //await _unitOfWork.UserManager.GetRolesAsync(user);
                 var result = await _unitOfWork.SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
                 if (!result.Succeeded) return BadRequest(ModelState);
                 var claims = new List<Claim> {
@@ -63,7 +64,8 @@ namespace EducationSystem.Api.Controllers
                 };
                 if (roles.Any())
                 {
-                    claims.AddRange(roles.Select(role => new Claim(JwtRegisteredClaimNames.Sub, role)));
+                    var userRole = roles.FirstOrDefault(r => r.Id == user.RoleId);
+                    claims.Add(new Claim(JwtRegisteredClaimNames.Sub, userRole.Name));
                 }
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.Key));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -86,7 +88,7 @@ namespace EducationSystem.Api.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody]RegisterBindingModel model)
         {
-            if(model.Password != model.ConfirmPassword)
+            if (model.Password != model.ConfirmPassword)
             {
                 ModelState.AddModelError("Password", "register_error.passwordconfirmation_invalid");
             }
@@ -97,50 +99,80 @@ namespace EducationSystem.Api.Controllers
             }
             else
             {
-                var user = new Admin {
-                    Email = model.Email,
-                    UserName = model.Email,
-                    LastName = model.LastName,
-                    FirstName = model.FirstName,
-                    MiddleName = model.MiddleName,
-                    DateOfBirth = model.DateOfBirth,
-                    PhoneNumber = model.PhoneNumber,
-                    DateRegistered = DateTime.Now,
-                    RoleId = ((int)Roles.Admin).ToString()
-                };
+                User user;
+                if(Convert.ToInt32(model.RoleId) == (int)Roles.Student)
+                {
+                    user = new Student
+                    {
+                        Email = model.Email,
+                        UserName = model.Email,
+                        LastName = model.LastName,
+                        FirstName = model.FirstName,
+                        MiddleName = model.MiddleName,
+                        DateOfBirth = model.DateOfBirth,
+                        PhoneNumber = model.PhoneNumber,
+                        DateRegistered = DateTime.Now,
+                        RoleId = model.RoleId
+                    };
+                }
+                else
+                {
+                    user = new Teacher
+                    {
+                        Email = model.Email,
+                        UserName = model.Email,
+                        LastName = model.LastName,
+                        FirstName = model.FirstName,
+                        MiddleName = model.MiddleName,
+                        DateOfBirth = model.DateOfBirth,
+                        PhoneNumber = model.PhoneNumber,
+                        DateRegistered = DateTime.Now,
+                        RoleId = model.RoleId
+                    };
+                }
+                
                 try
                 {
                     var result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
                     if (!result.Succeeded) { return BadRequest("Could not create token"); }
-                
-               
-                
-                var claims = new[]
-                {
+
+                    var claims = new[]
+                    {
                     new Claim(ClaimsIdentity.DefaultNameClaimType,user.Email),
                     new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Sid, user.Id.ToString()) // Set userid to token Sid claim
                 };
 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.Key));
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.Key));
+                    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-                var token = new JwtSecurityToken(_options.Value.Issuer,
-                    _options.Value.Issuer,
-                    claims,
-                    expires: DateTime.Now.AddMinutes(30),
-                    signingCredentials: creds);
+                    var token = new JwtSecurityToken(_options.Value.Issuer,
+                        _options.Value.Issuer,
+                        claims,
+                        expires: DateTime.Now.AddMinutes(30),
+                        signingCredentials: creds);
 
-                return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
+                    return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
                 }
                 catch (Exception e)
                 {
-                    return BadRequest("Error: "+e.Message + " inner:"+ e.InnerException?.Message);
+                    return BadRequest("Error: " + e.Message + " inner:" + e.InnerException?.Message);
                 }
             }
 
             return BadRequest("Could not create token");
+        }
+
+        [HttpGet]
+        [Route("getRoles")]
+        public IActionResult GetRoles()
+        {
+            var roles = _unitOfWork.RoleManager.Roles.Where(r => r.IsManageable).Select(r => new RoleBindingModel() {
+                Id = r.Id,
+                Name = r.Name
+            }).ToList();
+            return Ok(new { roles });
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
 namespace EducationManagement.Database.Models
@@ -18,5 +17,29 @@ namespace EducationManagement.Database.Models
         public string RoleId { get; set; }
 
         public Role Role { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + ((MiddleName != null && MiddleName != String.Empty) ? MiddleName + " " : "") + LastName;
+            }
+        }
+
+        public string DateOfBirthString
+        {
+            get
+            {
+                return String.Format("{0:MM/dd/yyyy}", DateOfBirth);
+            }
+        }
+
+        public string DateRegisteredString
+        {
+            get
+            {
+                return String.Format("{0:MM/dd/yyyy}", DateRegistered);
+            }
+        }
     }
 }

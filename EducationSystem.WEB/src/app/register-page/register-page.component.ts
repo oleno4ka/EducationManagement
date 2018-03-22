@@ -1,32 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, RequestOptions, RequestOptionsArgs, Headers } from '@angular/http';
 
 import { AuthenticationService } from '../_services/authentication.service';
+import { RoleService } from '../_services/role.service';
+import { IOption } from 'ng-select';
+//models
+import { Role } from '../_models/Role';
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.css']
 })
+
 export class RegisterPageComponent implements OnInit {
 
     model: any = {};
     loading = false;
     returnUrl: string;
+    roles: Role[] = [];
+    roleOptions: Array<IOption>;
+    myOptions: Array<IOption> = [
+        { label: 'Student', value: '3' },
+        { label: 'Teacher', value: '2' }
+    ];
 
     constructor(
         private http: Http,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService) { }
+        private authenticationService: AuthenticationService,
+        private roleService: RoleService) {
+
+        this.roleService.getRoles().subscribe(roles => {
+            this.roles = roles;
+        });
+    }
 
     register() {
         this.loading = true;
         this.authenticationService.register(this.model)
             .subscribe(
             data => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/dashboard']);
             },
             error => {
                 this.loading = false;
