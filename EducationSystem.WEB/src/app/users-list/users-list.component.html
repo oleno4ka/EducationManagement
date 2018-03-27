@@ -16,17 +16,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let user of users">
+                <tr *ngFor="let user of users; index as i">
                     <td>{{user.id}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.Role}}</td>
                     <td>{{user.DateRegisteredString}}</td>
                     <td>{{user.FullNameString}}</td>
                     <td class="td-actions text-right">
-                        <button type="button" rel="tooltip" title="Edit Task" (click)="editUserDialogOpen(user)" class="btn btn-primary btn-simple btn-xs">
+                        <button type="button" rel="tooltip" title="Edit Task" (click)="editUserDialogOpen(user, i)" class="btn btn-primary btn-simple btn-xs">
                             <i class="material-icons">edit</i>
                         </button>
-                        <button type="button" rel="tooltip" mat-raised-button title="Remove" (click)="removeUserDialogOpen(user.id, user.fullName)" class="btn btn-danger btn-simple btn-xs">
+                        <button type="button" rel="tooltip" mat-raised-button title="Remove" (click)="removeUserDialogOpen(user)" class="btn btn-danger btn-simple btn-xs">
                             <i class="material-icons">close</i>
                         </button>
                     </td>

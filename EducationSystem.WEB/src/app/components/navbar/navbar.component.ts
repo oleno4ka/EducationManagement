@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { AuthGuard } from 'app/_guards/auth.guard';
@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
     private authGuard: AuthGuard;
     private authenticationService: AuthenticationService;
     loginText: string;// = this.authGuard && this.authGuard.isAuthenticated ? "Log off" : "Log in";
+    @Input() userRoleId: string;
 
     constructor(location: Location, private element: ElementRef, private _authGuard: AuthGuard, private _authenticationService: AuthenticationService) {
       this.location = location;
@@ -34,6 +35,12 @@ export class NavbarComponent implements OnInit {
       } else {
           this.loginText = "Log in";
       }
+    }
+
+    userRoleIdChanged(roleId: string) {
+        console.log(roleId + " role is in navbar.component");
+        this.userRoleId = roleId;
+        console.log(roleId);
     }
 
     sidebarOpen() {

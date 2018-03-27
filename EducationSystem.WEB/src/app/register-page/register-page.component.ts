@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
-import { Http, Response, RequestOptions, RequestOptionsArgs, Headers } from '@angular/http';
-
 import { AuthenticationService } from '../_services/authentication.service';
+import { Http, Response, RequestOptions, RequestOptionsArgs, Headers } from '@angular/http';
 import { RoleService } from '../_services/role.service';
 import { IOption } from 'ng-select';
 //models

@@ -1,5 +1,5 @@
 
-<div class="card">
+<div class="card big-card">
     <div class="card-header" data-background-color="orange">
         <h4 class="title">{{ title | translate}}</h4>
         <p class="category">{{ message | translate}}</p>
@@ -8,7 +8,7 @@
         <md-dialog-content>
             <p> {{ nextText | translate}}</p>
             <p>not finished!</p>
-            <!--<edit-user-form></edit-user-form>-->
+            <edit-user-form [model]="model"></edit-user-form>
         </md-dialog-content>
         <md-dialog-actions align="right">
             <button mat-button md-raised-button md-dialog-close (click)="onCloseClick()">{{ closeText | translate}}</button>

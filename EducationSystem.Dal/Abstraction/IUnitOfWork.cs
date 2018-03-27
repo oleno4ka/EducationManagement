@@ -10,5 +10,9 @@ namespace EducationSystem.Dal.Abstraction
         SignInManager<User> SignInManager { get; }
         RoleManager<Role> RoleManager { get; }
         Task<int> Save();
+
+        ISubjectsRepository SubjectsRepository { get; }
+        ILevelsRepository LevelsRepository { get; }
+        ISubjectLevelsRepository SubjectLevelsRepository { get; }
     }
 }

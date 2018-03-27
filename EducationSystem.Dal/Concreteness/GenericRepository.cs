@@ -14,6 +14,7 @@ namespace EducationSystem.Dal.Concreteness
     {
         private readonly EducationManagementContext _context;
         private readonly DbSet<T> _dbSet;
+
         public GenericRepository(EducationManagementContext context)
         {
             _context = context;

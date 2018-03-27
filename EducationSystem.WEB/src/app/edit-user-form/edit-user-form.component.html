@@ -1,4 +1,4 @@
-<!--<form #f="ngForm" (ngSubmit)="edit()" novalidate>
+<form #f="ngForm" (ngSubmit)="edit()" novalidate class="big-card">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group form-black label-floating is-empty" [class.is-focused]="model.firstName">
@@ -86,7 +86,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group form-black label-floating is-empty">
+            <div class="form-group form-black label-floating is-empty" [class.is-focused]="true">
                 <label class="control-label">{{'register.label_roleId' | translate}}</label>
                 <ng-select [options]="myOptions" name="roleId" #roleId="ngModel" ngModel [(ngModel)]="model.roleId" class="form-control">
                 </ng-select>
@@ -101,6 +101,6 @@
             </div>
         </div>
     </div>
-    <button type="submit" [disabled]="loading" class="btn btn-danger pull-right">{{'profile.button_edit_text' | translate}}</button>
-    <div class="clearfix" *ngIf="successMessage"> Changes were successfully saved.</div>
-</form>-->
+    <!--<button type="submit" [disabled]="loading" class="btn btn-danger pull-right">{{'profile.button_edit_text' | translate}}</button>
+    <div class="clearfix" *ngIf="successMessage"> Changes were successfully saved.</div>-->
+</form>

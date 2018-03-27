@@ -44,6 +44,48 @@ namespace EducationSystem.Dal.Concreteness
             return await _context.SaveChangesAsync();
         }
 
+        private ISubjectsRepository _subjectsRepository;
+
+        public ISubjectsRepository SubjectsRepository
+        {
+            get
+            {
+                if (_subjectsRepository == null)
+                {
+                    _subjectsRepository = new SubjectsRepository(_context);
+                }
+                return _subjectsRepository;
+            }
+        }
+
+        private ILevelsRepository _levelsRepository;
+
+        public ILevelsRepository LevelsRepository
+        {
+            get
+            {
+                if (_levelsRepository == null)
+                {
+                    _levelsRepository = new LevelsRepository(_context);
+                }
+                return _levelsRepository;
+            }
+        }
+
+        private ISubjectLevelsRepository _subjectLevelsRepository;
+
+        public ISubjectLevelsRepository SubjectLevelsRepository
+        {
+            get
+            {
+                if (_subjectLevelsRepository == null)
+                {
+                    _subjectLevelsRepository = new SubjectLevelsRepository(_context);
+                }
+                return _subjectLevelsRepository;
+            }
+        }
+
         // IDisposable
         readonly bool _disposed = false;
         protected virtual void Dispose(bool disposing)

@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { TranslateService } from '@ngx-translate/core'
 import { BaseTosterService } from './_services/base-toaster.service'
-
+import { AuthenticationService } from "./_services/authentication.service";
 import * as moment from 'moment';
 import { ToasterService, ToasterConfig } from 'angular2-toaster';
 
@@ -16,7 +16,8 @@ declare const $: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [AuthenticationService]
 })
 export class AppComponent implements OnInit {
     private _router: Subscription;
@@ -29,16 +30,29 @@ export class AppComponent implements OnInit {
     });
     private translate: TranslateService;
     private toasterService: ToasterService;
+    public userRoleId: string;
 
     @ViewChild(NavbarComponent) navbar: NavbarComponent;
 
-    constructor(public location: Location, private router: Router, translate: TranslateService, toasterService: ToasterService) {
+    constructor(
+        public location: Location,
+        private router: Router,
+        translate: TranslateService,
+        toasterService: ToasterService,
+        private authenticationService: AuthenticationService
+    ) {
         // this language will be used as a fallback when a translation isn't found in the current language
         this.translate = translate;
         this.translate.setDefaultLang('en');
         // the lang to use, if the lang isn't available, it will use the current loader to get them
         this.translate.use('en');
         this.toasterService = toasterService;
+
+        authenticationService.userLogged$.subscribe(
+            roleId => {
+                this.userRoleId = roleId;
+                console.log(roleId+" role is in app.component");
+            });
     }
 
     ngOnInit() {

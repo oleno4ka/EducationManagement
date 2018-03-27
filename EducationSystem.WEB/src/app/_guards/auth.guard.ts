@@ -14,7 +14,11 @@ export class AuthGuard implements CanActivate {
 
     public get userId(): string { return this.currentUser !== null ? this.currentUser.id : null }
 
-    public get userRoleId(): string { return (this.currentUser !== null && this.currentUser.token !== null) ? this.currentUser.token.roleid : null }
+    public get userRoleId(): string
+    {
+        console.log(decode(this.currentUser.token).role);
+        return (this.currentUser !== null && this.currentUser.token !== null) ? decode(this.currentUser.token).role : null
+    }
 
     public get token(): string { return this.currentUser !== null ? this.currentUser.token : null }
 

@@ -31,7 +31,7 @@ export class RoleGuard implements CanActivate {
             //not logged in so redirect to login page with the return url
             this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         }
-        if (tokenPayload.sub[1] !== Roles[expectedRole]) {
+        if (tokenPayload.role !== Roles[expectedRole]) {
             this.router.navigate(['permission-error']);
              //not logged in so redirect to login page with the return url
             this.router.navigate(['/permission-error'], { queryParams: { returnUrl: state.url } });

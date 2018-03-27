@@ -16,7 +16,8 @@ import { EditDialog } from 'app/edit-dialog/edit-dialog.component';
 export class UsersListComponent implements OnInit {
     loadingEdit: boolean = false;
     loadingDelete: boolean = false;
-
+    editableUser: User;
+    isEditOpen: boolean = false;
     users: User[];
     userService: UserService;
     private toasterService: ToasterService;
@@ -50,26 +51,26 @@ export class UsersListComponent implements OnInit {
 
   editUser(model) {
       this.loadingEdit = true;
-      //this.userService.editUserListItem(model)
-      //    .subscribe(
-      //    data => {
-      //        this.toasterService.pop('success', 'Success', 'User was deleted');
-      //        this.loadingEdit = false;
-      //    },
-      //    error => {
-      //        this.toasterService.pop('error', 'Error', 'Error occured');
-      //        this.loadingEdit = false;
-      //    });
+      this.userService.editUserListItem(model)
+          .subscribe(
+          data => {
+              this.toasterService.pop('success', 'Success', 'User was deleted');
+              this.loadingEdit = false;
+          },
+          error => {
+              this.toasterService.pop('error', 'Error', 'Error occured');
+              this.loadingEdit = false;
+          });
   }
 
-  removeUserDialogOpen(id: string, name: string) : void{
+  removeUserDialogOpen(model: User, index: number) : void{
       let dialogRef = this.dialog.open(InfoDialog, {
 
           data: {
               title: "dialog.remove_user.title",
               message: "dialog.remove_user.message",
               closeText: "dialog.remove_user.close_text",
-              customText: name,
+              customText: model.FullNameString,
               approveText: "dialog.remove_user.approveText"}
       });
 
@@ -77,20 +78,22 @@ export class UsersListComponent implements OnInit {
           console.log('The dialog was closed');
           console.log(result);
           if (result) {
-              this.removeUser(id);
+              this.removeUser(model.id);
+              this.users.slice(index);
           }
       });
   }
 
   editUserDialogOpen(model: User): void {
+      this.editableUser = model;
       let dialogRef = this.dialog.open(EditDialog, {
-
+          
           data: {
               title: "dialog.edit_user.title",
               message: "dialog.edit_user.message",
               closeText: "dialog.edit_user.close_text",
-              customText: name,
-              model: model,
+              customText: model.FullNameString,
+              model: this.editableUser,
               approveText: "dialog.edit_user.approveText"
           }
       });

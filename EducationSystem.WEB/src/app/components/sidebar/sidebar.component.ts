@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { UserService } from 'app/_services/user.service';
 import { Observable } from 'rxjs/Observable';
 import { User } from 'app/_models/User';
 import { AuthGuard } from 'app/_guards/auth.guard';
 import { Roles } from 'app/_enums/roles';
+import { AuthenticationService } from 'app/_services/authentication.service';
+import { Subscription } from 'rxjs/Subscription';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -25,6 +27,7 @@ export const STUDENT_ROUTES: RouteInfo[] = [
 
 export const ROUTES: RouteInfo[] = [
     { path: 'user-profile', title: 'User Profile', icon: 'person', class: '' },
+    { path: 'home', title: 'Home', icon: 'home', class: '' },
     { path: 'table-list', title: 'Table List', icon: 'content_paste', class: '' },
     { path: 'typography', title: 'Typography', icon: 'library_books', class: '' },
     { path: 'icons', title: 'Icons', icon: 'bubble_chart', class: '' },
@@ -38,33 +41,58 @@ export const ROUTES: RouteInfo[] = [
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy{
     menuItems: any[];
+    userRole: string;
     // public user: User = new User();
     public currentUserName: string;
     userService: UserService;
     private authGuard: AuthGuard;
+    subscription: Subscription;
 
-    constructor(private _userService: UserService, private _authGuard: AuthGuard) {
+    constructor(private _userService: UserService, private _authGuard: AuthGuard,
+        private _authenticationService: AuthenticationService) {
         this.userService = _userService;
         this.authGuard = _authGuard;
+        this.subscription = _authenticationService.userLogged$.subscribe(
+            role => {
+                console.log(role + " role is in sidebar.component");
+                this.userRole = role;
+                this.getMenuItems();
+                this.getUserName();
+            });
+        if (this._authGuard.isAuthenticated) {
+            this.userRole = this._authGuard.userRoleId;
+        }
     }
 
     ngOnInit() {
+        this.getMenuItems();
+
+        this.getUserName();
+    }
+
+    getMenuItems() {
+        if (this.menuItems) {
+            this.menuItems = null;
+        }
         if (this._authGuard.isAuthenticated) {
-            if (this._authGuard.userRoleId && Roles[this._authGuard.userRoleId] == Roles.Admin) {
+            if (this.userRole && Roles[this.userRole] == Roles.Admin) {
                 this.menuItems = ADMIN_ROUTES.filter(menuItem => menuItem);
             }
-            if (this._authGuard.userRoleId && Roles[this._authGuard.userRoleId] == Roles.Student) {
+            if (this.userRole && Roles[this.userRole] == Roles.Student) {
                 this.menuItems = STUDENT_ROUTES.filter(menuItem => menuItem);
             }
-            if (this._authGuard.userRoleId && Roles[this._authGuard.userRoleId] == Roles.Teacher) {
+            if (this.userRole && Roles[this.userRole] == Roles.Teacher) {
                 this.menuItems = TEACHER_ROUTES.filter(menuItem => menuItem);
             }
         }
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
+        
+        this.menuItems = this.menuItems ? this.menuItems.concat(ROUTES.filter(menuItem => menuItem)) : ROUTES.filter(menuItem => menuItem);
+    }
 
-        if (this.authGuard.isAuthenticated ) {
+    getUserName(){
+        if (this.authGuard.isAuthenticated) {
             var userObs = this.userService.getCurrent().subscribe(user => {
                 this.currentUserName = user.FullNameString;
             },
@@ -74,6 +102,12 @@ export class SidebarComponent implements OnInit {
             this.currentUserName = "Education system";
         }
     }
+
+    userRoleIdChanged(role: string) {
+        this.userRole = role;
+        console.log(role);
+    }
+
     isMobileMenu() {
         if (window.screen.width > 991) {
             return false;
@@ -84,5 +118,10 @@ export class SidebarComponent implements OnInit {
     isAdmin(): boolean {
         console.log(this._authGuard.userRoleId);
         return this._authGuard.userRoleId && Roles[this._authGuard.userRoleId] == Roles.Admin;
+    }
+
+    ngOnDestroy() {
+        // prevent memory leak when component destroyed
+        this.subscription.unsubscribe();
     }
 }

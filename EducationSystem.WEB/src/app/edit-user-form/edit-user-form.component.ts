@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from 'app/_services/user.service';
 import { User } from 'app/_models/User';
 import { Roles } from 'app/_enums/roles';
 import { ToasterService } from 'angular2-toaster';
+import { IOption } from 'ng-select';
 
 @Component({
     selector: 'edit-user-form',
@@ -10,24 +11,22 @@ import { ToasterService } from 'angular2-toaster';
     styleUrls: ['./edit-user-form.component.css']
 })
 export class EditUserFormComponent implements OnInit {
-    model: User = new User();
+    @Input() model: User ;
     loading = false;
     userService: UserService;
     private toasterService: ToasterService;
     successMessage: boolean = false;
+    myOptions: Array<IOption> = [
+        { label: 'Student', value: '3' },
+        { label: 'Teacher', value: '2' }
+    ];
 
-    constructor(private _userService: UserService, toasterService: ToasterService, model: User) {
+    constructor(private _userService: UserService, toasterService: ToasterService) {
         this.userService = _userService;
         this.toasterService = toasterService;
-        this.model = model;
     }
 
     ngOnInit() {
-        //var userObs = this.userService.getCurrent().subscribe(
-        //    user => {
-        //        this.model = user;
-        //    },
-        //    error => { console.log("error: sidebar component"); });
     }
 
     edit() {

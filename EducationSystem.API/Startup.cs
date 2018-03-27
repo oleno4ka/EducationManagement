@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using EducationManagement.Database;
 using EducationManagement.Database.Models;
+using EducationSystem.Api;
+using EducationSystem.Api.Services;
 using EducationSystem.Dal.Abstraction;
 using EducationSystem.Dal.Concreteness;
 using EducationSystem.Models;
@@ -50,7 +49,7 @@ namespace EducationSystem.API
             services.Configure<AppConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.Configure<JWTOptions>(Configuration.GetSection("Tokens"));
 
-            services.AddMvc();
+            //services.AddMvc();
 
             services.AddDbContext<EducationManagementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TestingConnectionString")));
 
@@ -76,8 +75,14 @@ namespace EducationSystem.API
                 .AddDefaultTokenProviders()
                 .AddRoleValidator<RoleValidator<Role>>()
                 .AddRoleManager<RoleManager<Role>>()
-                .AddSignInManager<SignInManager<User>>();
+                .AddSignInManager<SignInManager<User>>()
+                ;
             //services.AddAutoMapper();
+
+            // Add application services.
+            services.AddTransient<AuthenticationService>();
+            services.AddTransient<EnumService>();
+            services.AddTransient<UserService>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -99,6 +104,10 @@ namespace EducationSystem.API
             });
 
             //JWT
+            // Remove all automatic mapping for inbound claims
+            // Otherwise "sub" becomes "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
             services.AddAuthentication(o =>
             {
                 o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -118,7 +127,9 @@ namespace EducationSystem.API
 
                     ValidIssuer = Configuration["Tokens:Issuer"],
                     ValidAudience = Configuration["Tokens:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"])),
+                    NameClaimType = JwtRegisteredClaimNames.Sub,
+                    RoleClaimType = Constants.RoleClaimType
                 };
                 options.Events = new JwtBearerEvents
                 {
@@ -185,7 +196,7 @@ namespace EducationSystem.API
                     var ex = context.Features.Get<IExceptionHandlerFeature>();
                     if (ex != null)
                     {
-                        var err = "{ Error:" + $"{ ex.Error.Message}, ErrorTrace: {ex.Error.StackTrace }" + "}";
+                        var err = "{ Error:" + $"{ ex.Error.Message}, InnerError:"+ex.Error.InnerException?.Message +", ErrorTrace: {ex.Error.StackTrace }" + "}";
                         await context.Response.WriteAsync(err).ConfigureAwait(false);
                     }
                 });

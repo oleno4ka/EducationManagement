@@ -35,6 +35,9 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { InfoDialog } from "./info-dialog/info-dialog.component";
 import { EditDialog } from "./edit-dialog/edit-dialog.component";
 import { EditUserFormComponent } from './edit-user-form/edit-user-form.component';
+import { HomeComponent } from "./home/home.component";
+import { TeacherDashboardComponent } from "./teacher-dashboard/teacher-dashboard.component";
+import { PermissionErrorComponent } from "./permission-error/permission-error.component";
 //services
 import { AuthenticationService } from "./_services/authentication.service";
 import { RoleService } from "./_services/role.service";
@@ -53,6 +56,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
       DashboardComponent,
+      TeacherDashboardComponent,
+      PermissionErrorComponent,
       EditUserFormComponent,
     UserProfileComponent,
     TableListComponent,
@@ -67,6 +72,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       UsersListComponent,
       InfoDialog,
       EditDialog,
+      HomeComponent,
+
     ],
 
   imports: [

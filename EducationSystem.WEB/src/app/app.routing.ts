@@ -17,6 +17,9 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { RoleGuard } from 'app/_guards/role.guard';
 import { Roles } from 'app/_enums/roles';
 import { UsersListComponent } from 'app/users-list/users-list.component';
+import { HomeComponent } from 'app/home/home.component';
+import { TeacherDashboardComponent } from 'app/teacher-dashboard/teacher-dashboard.component';
+import { PermissionErrorComponent } from 'app/permission-error/permission-error.component';
 
 const routes: Routes =[
     {
@@ -25,6 +28,14 @@ const routes: Routes =[
         canActivate: [RoleGuard],
         data: {
             expectedRole: Roles.Admin.toString()
+        }
+    },
+    {
+        path: 'teacher-dashboard',
+        component: TeacherDashboardComponent,
+        canActivate: [RoleGuard],
+        data: {
+            expectedRole: Roles.Teacher.toString()
         }
     },
     { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
@@ -36,6 +47,7 @@ const routes: Routes =[
             expectedRole: Roles.Admin.toString()
         }
     },
+    { path: 'home', component: HomeComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },
@@ -43,8 +55,9 @@ const routes: Routes =[
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade', component: UpgradeComponent },
     { path: 'register', component: RegisterPageComponent },
+    { path: 'permission-error', component: PermissionErrorComponent },
     { path: 'login', component: LoginPageComponent },
-    { path: '',               redirectTo: 'dashboard', pathMatch: 'full' }
+    { path: '',               redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -39,6 +39,13 @@ export class UserService {
                 });
             });
     }
+    public editUserListItem(model) {
+        return this.http.post(this.BASEURL + 'api/users/editUser', model, { headers: Headers })
+            .map((response: any) => {
+                let user = response;
+                return user;
+            });
+    }
 
     public edit(model) {
         return this.http.post(this.BASEURL + 'api/users/edit', model, { headers: Headers })
@@ -49,7 +56,7 @@ export class UserService {
     }
 
     public remove(id) {
-        return this.http.post(this.BASEURL + 'api/users/remove?id='+ id, { headers: Headers })
+        return this.http.post(this.BASEURL + 'api/users/remove?id=' + id, { headers: Headers })
             .map((response: any) => {
                 return response;
             });

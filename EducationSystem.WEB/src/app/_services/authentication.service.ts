@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Subject } from 'rxjs/Subject';
+import { AuthGuard } from 'app/_guards/auth.guard';
 
 const Headers = new HttpHeaders({ 'Content-Type': 'application/json', 'withCredentials': 'true' });
 //const OPTIONS: RequestOptionsArgs = { headers: new Headers({ 'Content-Type': 'application/json', withCredentials: true }, ) };
@@ -13,9 +15,14 @@ const Headers = new HttpHeaders({ 'Content-Type': 'application/json', 'withCrede
 
 @Injectable()
 export class AuthenticationService {
+
+    private userLoggedSource = new Subject<string>();
+    userLogged$ = this.userLoggedSource.asObservable();
+
     readonly BASEURL: string;
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private authGuard:AuthGuard) {
         this.BASEURL = environment.baseApi;
+        this.authGuard = authGuard;
     }
 
     public register(model) {
@@ -26,6 +33,7 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.userLoggedSource.next(this.authGuard.userRoleId);
                 }
 
                 return user;
@@ -41,6 +49,7 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.userLoggedSource.next(this.authGuard.userRoleId);
                 }
 
                 return user;
