@@ -1,0 +1,38 @@
+
+<div class="card big-card">
+    <div class="card-header" data-background-color="orange">
+        <h4 class="title">{{ title | translate}}</h4>
+        <p class="category">{{ message | translate}}</p>
+    </div>
+    <div class="card-content table-responsive">
+        <md-dialog-content>
+            <p> {{ nextText | translate}}</p>
+        </md-dialog-content>
+        <form #f="ngForm" (ngSubmit)="edit()" novalidate class="big-card">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-black label-floating is-empty" [class.is-focused]="model.Name">
+                        <label class="control-label">{{'subject_level.add_subject.label_Name' | translate}}</label>
+                        <input type="text" name="Name" [(ngModel)]="model.Name" #Name="ngModel" required class="form-control">
+                    </div>
+                    <div class="md-errors-spacer" [hidden]="Name.valid || Name.untouched">
+                        <div *ngIf="f.submitted && Name.errors && Name.errors.required">
+                            {{'subject_level.add_subject_error.Name_required' | translate}}
+                        </div>
+                        <div *ngIf="f.submitted && Name.errors && Name.errors.pattern">
+                            {{'subject_level.add_subject_error.Name_invalid' | translate}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <md-dialog-actions align="right">
+            <button mat-button md-raised-button md-dialog-close (click)="onCloseClick()">{{ closeText | translate}}</button>
+            <button mat-button md-raised-button id="sm-next-button"
+                    (click)="dialogRef.close(model)">
+                {{ approveText | translate}}
+            </button>
+
+        </md-dialog-actions>
+    </div>
+</div>

@@ -15,7 +15,8 @@ declare interface RouteInfo {
     class: string;
 }
 export const ADMIN_ROUTES: RouteInfo[] = [
-    { path: 'dashboard', title: 'Dashboard', icon: 'dashboard', class: '' }
+    { path: 'dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+    { path: 'subject-level-config', title: 'Subjects Config', icon: 'build', class: '' }
 ];
 
 export const TEACHER_ROUTES: RouteInfo[] = [

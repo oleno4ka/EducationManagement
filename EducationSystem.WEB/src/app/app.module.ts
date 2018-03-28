@@ -21,23 +21,24 @@ import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 //components
 import { AppComponent } from './app.component';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { UserProfileComponent } from './components/profile/user-profile/user-profile.component';
 import { TableListComponent } from './table-list/table-list.component';
 import { TypographyComponent } from './typography/typography.component';
 import { IconsComponent } from './icons/icons.component';
 import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { RegisterPageComponent } from './register-page/register-page.component';
-import { UsersListComponent } from './users-list/users-list.component';
-import { InfoDialog } from "./info-dialog/info-dialog.component";
-import { EditDialog } from "./edit-dialog/edit-dialog.component";
-import { EditUserFormComponent } from './edit-user-form/edit-user-form.component';
-import { HomeComponent } from "./home/home.component";
-import { TeacherDashboardComponent } from "./teacher-dashboard/teacher-dashboard.component";
-import { PermissionErrorComponent } from "./permission-error/permission-error.component";
+import { LoginPageComponent } from './components/authorization/login-page/login-page.component';
+import { RegisterPageComponent } from './components/authorization/register-page/register-page.component';
+import { UsersListComponent } from './components/admin/users-list/users-list.component';
+import { InfoDialog } from "./components/dialogs/info-dialog/info-dialog.component";
+import { EditDialog } from "./components/dialogs/edit-dialog/edit-dialog.component";
+import { EditUserFormComponent } from './components/dialogs/edit-user-form/edit-user-form.component';
+import { HomeComponent } from "./components/home/home.component";
+import { TeacherDashboardComponent } from "./components/teacher/teacher-dashboard/teacher-dashboard.component";
+import { PermissionErrorComponent } from "./components/error/permission-error/permission-error.component";
+import { SubjectLevelConfigComponent } from './components/admin/subject-level-config/subject-level-config.component';
 //services
 import { AuthenticationService } from "./_services/authentication.service";
 import { RoleService } from "./_services/role.service";
@@ -46,7 +47,8 @@ import { ArrayValuesPipe } from './_pipes/array-values.pipe';
 import { AuthGuard } from "./_guards/auth.guard";
 import { UserService } from "./_services/user.service";
 import { RoleGuard } from 'app/_guards/role.guard';
-
+import { SubjectLevelService } from './_services/subjectlevel.service';
+import { AddSubjectDialog } from 'app/components/dialogs/add-subject-dialog/add-subject-dialog.component';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -72,8 +74,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       UsersListComponent,
       InfoDialog,
       EditDialog,
+      AddSubjectDialog,
       HomeComponent,
-
+      SubjectLevelConfigComponent,
     ],
 
   imports: [
@@ -103,7 +106,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   entryComponents: [
       InfoDialog,
-      EditDialog
+      EditDialog,
+      AddSubjectDialog
   ],
   exports: [TranslateModule],
   providers: [
@@ -119,7 +123,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       { provide: MatDialogConfig, useValue: { hasBackdrop: false } },
       AuthGuard,
       RoleGuard,
-      UserService
+      UserService,
+      SubjectLevelService
   ],
   bootstrap: [AppComponent]
 })

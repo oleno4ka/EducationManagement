@@ -129,5 +129,24 @@
       "close_text": "Close",
       "approveText": "Save"
     }
+  },
+
+  "subject_level": {
+    "tabs": {
+      "title": "Configuration:",
+      "tab_subjectsList": "Subjects",
+      "tab_levelsList": "Levels"
+    },
+    "add_subject": {
+      "title": "Add new subject",
+      "message": "",
+      "label_Name": "Name",
+      "close_text": "Close",
+      "approve_text": "Save"
+    },
+    "add_subject_error": {
+      "Name_required": "Name field is required",
+      "Name_invalid": "Name field is invalid"
+    }
   }
 }

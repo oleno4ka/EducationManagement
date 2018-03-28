@@ -83,6 +83,7 @@ namespace EducationSystem.API
             services.AddTransient<AuthenticationService>();
             services.AddTransient<EnumService>();
             services.AddTransient<UserService>();
+            services.AddTransient<SubjectLevelService>();
 
             services.Configure<IdentityOptions>(options =>
             {

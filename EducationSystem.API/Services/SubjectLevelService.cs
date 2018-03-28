@@ -32,22 +32,104 @@ namespace EducationSystem.Api.Services
             return levels;
         }
 
+        public async Task<Level> AddLevel(LevelBindingModel model)
+        {
+            var exist = _unitOfWork.LevelsRepository.Data.Any(d => d.Name.ToLower() == model.Name.ToLower());
+
+            if (exist)
+            {
+                return null;
+            }
+
+            var level = new Level()
+            {
+                MinEntryTaskScore = model.MinEntryTaskScore,
+                Name = model.Name
+            };
+
+            var result = await _unitOfWork.LevelsRepository.AddAsync(level);
+
+            return result;
+        }
+
+        public async Task<Subject> AddSubject(SubjectBindingModel model)
+        {
+            var exist = _unitOfWork.SubjectsRepository.Data.Any(d => d.Name.ToLower() == model.Name.ToLower());
+
+            if (exist)
+            {
+                return null;
+            }
+
+            var subject = new Subject()
+            {
+                Name = model.Name
+            };
+
+            var result = await _unitOfWork.SubjectsRepository.AddAsync(subject);
+
+            return result;
+        }
+
+        public Subject EditSubject(SubjectBindingModel model)
+        {
+            var subject = _unitOfWork.SubjectsRepository.Data.FirstOrDefault(d => d.Id == model.Id);
+
+            if (subject == null)
+            {
+                return null;
+            }
+
+            subject.Name = model.Name;
+
+            var result = _unitOfWork.SubjectsRepository.Update(subject);
+
+            return result;
+        }
+
+        public Level EditLevel(LevelBindingModel model)
+        {
+            var level = _unitOfWork.LevelsRepository.Data.FirstOrDefault(d => d.Id == model.Id);
+
+            if (level == null)
+            {
+                return null;
+            }
+
+            level.Name = model.Name;
+            level.MinEntryTaskScore = model.MinEntryTaskScore;
+
+            var result = _unitOfWork.LevelsRepository.Update(level);
+
+            return result;
+        }
+
         public List<SubjectBindingModel> GetSubjects()
         {
             var subjects = _unitOfWork.SubjectsRepository.Data
-                .Select(i => new SubjectBindingModel() {
+                .Select(i => new SubjectBindingModel()
+                {
                     Id = i.Id,
-                    Name = i.Name
-                }).ToList();
+                    Name = i.Name,
 
+                    SubjectLevels = i.SubjectLevel.Select(sl => new SubjectLevelBindingModel() {
+                        EntryTaskId =  sl.EntryTaskId,
+                        LevelId = sl.LevelId,
+                        SubjectId = sl.SubjectId,
+                        LevelName = sl.Level.Name,
+                        SubjectName = sl.Level.Name,
+                        Price = sl.Price,
+                        MinEntryTaskScore = sl.Level.MinEntryTaskScore
+                    }).ToList()
+                }).ToList();
             return subjects;
         }
 
         public List<SubjectLevelBindingModel> GetSubjectLevels(int? subjectId = null, int? levelId = null, int? priceMin = null, int? priceMax = null)
         {
             List<Expression<Func<SubjectLevel, bool>>> filterList = new List<Expression<Func<SubjectLevel, bool>>>();
-            if(subjectId.HasValue)
-               filterList.Add(l => l.SubjectId == subjectId.Value);
+            if (subjectId.HasValue)
+                filterList.Add(l => l.SubjectId == subjectId.Value);
             if (levelId.HasValue)
                 filterList.Add(l => l.LevelId == levelId.Value);
             if (priceMin.HasValue)
@@ -63,10 +145,25 @@ namespace EducationSystem.Api.Services
                     LevelId = i.LevelId,
                     SubjectName = i.Subject.Name,
                     LevelName = i.Level.Name,
-                    EntryTaskIdId = i.EntryTaskId
+                    EntryTaskId = i.EntryTaskId
                 }).ToList();
 
             return subjects;
+        }
+
+        public SubjectLevel EditSubjectLevel(SubjectLevelBindingModel model)
+        {
+            var sl = _unitOfWork.SubjectLevelsRepository.Data.FirstOrDefault(d => d.SubjectId == model.SubjectId && d.LevelId == model.LevelId);
+            if(sl == null)
+            {
+                return null;
+            }
+
+            sl.Price = model.Price;
+
+            var result = _unitOfWork.SubjectLevelsRepository.Update(sl);
+
+            return result;
         }
     }
 }

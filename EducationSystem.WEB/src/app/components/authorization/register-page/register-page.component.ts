@@ -1,11 +1,11 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../_services/authentication.service';
+import { AuthenticationService } from 'app/_services/authentication.service';
 import { Http, Response, RequestOptions, RequestOptionsArgs, Headers } from '@angular/http';
-import { RoleService } from '../_services/role.service';
+import { RoleService } from 'app/_services/role.service';
 import { IOption } from 'ng-select';
 //models
-import { Role } from '../_models/Role';
+import { Role } from 'app/_models/Role';
 
 @Component({
   selector: 'app-register-page',

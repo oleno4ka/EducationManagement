@@ -5,8 +5,8 @@ import { User } from 'app/_models/User';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
-import { InfoDialog } from 'app/info-dialog/info-dialog.component';
-import { EditDialog } from 'app/edit-dialog/edit-dialog.component';
+import { InfoDialog } from 'app/components/dialogs/info-dialog/info-dialog.component';
+import { EditDialog } from 'app/components/dialogs/edit-dialog/edit-dialog.component';
 
 @Component({
   selector: 'app-users-list',

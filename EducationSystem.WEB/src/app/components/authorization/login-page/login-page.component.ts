@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthenticationService } from '../_services/authentication.service';
+import { AuthenticationService } from 'app/_services/authentication.service';
 import { ToasterConfig, ToasterService, Toast } from "angular2-toaster/angular2-toaster";
 
 @Component({
