@@ -8,10 +8,6 @@ import { Subject } from 'rxjs/Subject';
 import { AuthGuard } from 'app/_guards/auth.guard';
 
 const Headers = new HttpHeaders({ 'Content-Type': 'application/json', 'withCredentials': 'true' });
-//const OPTIONS: RequestOptionsArgs = { headers: new Headers({ 'Content-Type': 'application/json', withCredentials: true }, ) };
-//const BASEURL = "https://smeat-web-api.herokuapp.com/";
-//const BASEURL = "http://localhost:27121/";
-
 
 @Injectable()
 export class AuthenticationService {
@@ -28,10 +24,8 @@ export class AuthenticationService {
     public register(model) {
         return this.http.post(this.BASEURL + 'api/account/register', model, { headers: Headers })
             .map((response: any) => {
-                // login successful if there's a jwt token in the response
                 let user = response;
                 if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.userLoggedSource.next(this.authGuard.userRoleId);
                 }
@@ -44,10 +38,8 @@ export class AuthenticationService {
         return this.http.post(this.BASEURL + 'api/account/login', model, { headers: Headers })
 
             .map((response: any) => {
-                // login successful if there's a jwt token in the response
                 let user = response;
                 if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.userLoggedSource.next(this.authGuard.userRoleId);
                 }
@@ -57,7 +49,6 @@ export class AuthenticationService {
     }
 
     logout() {
-        // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
     }
 }

@@ -14,9 +14,6 @@ export class AddSubjectDialog {
     closeText: string;
     approveText: string;
     nextText: string;
-    /**
-     * True to show the next button. False to hide it.
-     */
     model: Subject;
 
     constructor(
@@ -27,7 +24,6 @@ export class AddSubjectDialog {
         this.closeText = data.closeText;
         this.nextText = data.customText;
         this.approveText = data.approveText;
-       // this.enableNext = HIDE_NEXT_BUTTON;
         this.model = data.model;
     }
 

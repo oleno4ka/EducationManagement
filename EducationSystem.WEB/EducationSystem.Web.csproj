@@ -53,4 +53,6 @@
     <TypeScriptCompile Include="src\app\_services\user.service.ts" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties package_1json__JSONSchema="http://json.schemastore.org/project" /></VisualStudio></ProjectExtensions>
+
 </Project>

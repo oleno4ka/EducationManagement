@@ -1,0 +1,4 @@
+.footer-container, footer {
+    position:fixed;
+    bottom: 0 !important;
+}

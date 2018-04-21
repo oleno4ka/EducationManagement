@@ -23,12 +23,6 @@ import { AppComponent } from './app.component';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { UserProfileComponent } from './components/profile/user-profile/user-profile.component';
-import { TableListComponent } from './table-list/table-list.component';
-import { TypographyComponent } from './typography/typography.component';
-import { IconsComponent } from './icons/icons.component';
-import { MapsComponent } from './maps/maps.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
 import { LoginPageComponent } from './components/authorization/login-page/login-page.component';
 import { RegisterPageComponent } from './components/authorization/register-page/register-page.component';
 import { UsersListComponent } from './components/admin/users-list/users-list.component';
@@ -62,12 +56,6 @@ export function HttpLoaderFactory(http: HttpClient) {
       PermissionErrorComponent,
       EditUserFormComponent,
     UserProfileComponent,
-    TableListComponent,
-    TypographyComponent,
-    IconsComponent,
-    MapsComponent,
-    NotificationsComponent,
-    UpgradeComponent,
     LoginPageComponent,
       RegisterPageComponent,
       ArrayValuesPipe,

@@ -23,20 +23,11 @@ namespace EducationSystem.Api.Controllers
             enumService = _enumService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         // POST api/account/login
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody]LoginBindingModel model)
         {
-            if (model.Password != model.ConfirmPassword)
-            {
-                ModelState.AddModelError("Password", "register_error.passwordconfirmation_invalid");
-            }
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
             var token = await authenticationService.Login(model);
@@ -54,10 +45,6 @@ namespace EducationSystem.Api.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody]RegisterBindingModel model)
         {
-            if (model.Password != model.ConfirmPassword)
-            {
-                ModelState.AddModelError("Password", "register_error.passwordconfirmation_invalid");
-            }
             if (!ModelState.IsValid) { return BadRequest("Could not create token"); }
 
             if (userService.UserExists(model.Email))

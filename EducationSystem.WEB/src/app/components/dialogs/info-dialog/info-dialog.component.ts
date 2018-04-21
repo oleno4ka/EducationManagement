@@ -14,9 +14,6 @@ export class InfoDialog {
     closeText: string;
     approveText: string;
     nextText: string;
-    /**
-     * True to show the next button. False to hide it.
-     */
     enableNext: boolean;
     constructor(
         public dialogRef: MatDialogRef<InfoDialog>,

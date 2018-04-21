@@ -13,17 +13,13 @@ import { IOption } from 'ng-select';
 export class EditUserFormComponent implements OnInit {
     @Input() model: User ;
     loading = false;
-    userService: UserService;
-    private toasterService: ToasterService;
     successMessage: boolean = false;
     myOptions: Array<IOption> = [
         { label: 'Student', value: '3' },
         { label: 'Teacher', value: '2' }
     ];
 
-    constructor(private _userService: UserService, toasterService: ToasterService) {
-        this.userService = _userService;
-        this.toasterService = toasterService;
+    constructor(private userService: UserService, private toasterService: ToasterService) {
     }
 
     ngOnInit() {

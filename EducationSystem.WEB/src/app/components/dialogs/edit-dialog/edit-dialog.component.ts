@@ -16,9 +16,6 @@ export class EditDialog {
     closeText: string;
     approveText: string;
     nextText: string;
-    /**
-     * True to show the next button. False to hide it.
-     */
     model: User;
 
     constructor(

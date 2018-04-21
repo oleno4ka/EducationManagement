@@ -18,6 +18,7 @@ namespace EducationSystem.Models.BindingModels
         [Required(ErrorMessage = "login_error.pass_required")]
         [DataType(DataType.Password)]
         [RegularExpression(ValidationConstants.PasswordValidationString, ErrorMessage = "login_error.pass_invalid")]
+        [Compare("Password")]
         public string ConfirmPassword { get; set; }
     }
 }

@@ -14,12 +14,11 @@ import { AddSubjectDialog } from 'app/components/dialogs/add-subject-dialog/add-
 })
 export class SubjectLevelConfigComponent implements OnInit {
     loadingEdit: boolean;
-    toasterService: ToasterService;
     public levels: Level[];
     public subjectModel: Subject = new Subject();
     public subjects: Subject[];
-    constructor(private subjectLevelService: SubjectLevelService, public dialog: MatDialog, private _toasterService: ToasterService) {
-        this.toasterService = _toasterService;
+
+    constructor(private subjectLevelService: SubjectLevelService, public dialog: MatDialog, private toasterService: ToasterService) {
     }
 
     ngOnInit() {

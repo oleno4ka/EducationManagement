@@ -19,12 +19,8 @@ export class UsersListComponent implements OnInit {
     editableUser: User;
     isEditOpen: boolean = false;
     users: User[];
-    userService: UserService;
-    private toasterService: ToasterService;
 
-    constructor(private _userService: UserService, _toasterService: ToasterService, public dialog: MatDialog) {
-        this.userService = _userService;
-        this.toasterService = _toasterService;
+    constructor(private userService: UserService, private toasterService: ToasterService, public dialog: MatDialog) {
     }
 
   ngOnInit() {

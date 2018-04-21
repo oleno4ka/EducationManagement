@@ -16,15 +16,10 @@ namespace EducationSystem.Api.Controllers
     //TODO: require role
     public class UsersController : Controller
     {
-        private UserService userService;
-        public UsersController(UserService _userService)
+        private readonly UserService _userService;
+        public UsersController(UserService userService)
         {
-            userService = _userService;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
+            _userService = userService;
         }
 
         [HttpGet]
@@ -34,7 +29,7 @@ namespace EducationSystem.Api.Controllers
         {
             if(id != null)
             {
-                var user = userService.GetUser(id);
+                var user = _userService.GetUser(id);
                 return Ok(user);
             }
             else
@@ -54,7 +49,7 @@ namespace EducationSystem.Api.Controllers
                 return Forbid("User not found!");
             }
 
-            var userModel = userService.GetUser(userId);
+            var userModel = _userService.GetUser(userId);
 
             return Ok(userModel);
         }
@@ -72,12 +67,13 @@ namespace EducationSystem.Api.Controllers
                 return Forbid("User not found!");
             }
 
-            var usersList = userService.GetUsersList(userId);
+            var usersList = _userService.GetUsersList(userId);
 
             return Ok(usersList);
         }
 
         [HttpPost]
+        //TODO: change to put
         [Route("edit")]
         public async Task<IActionResult> EditCurrentUser([FromBody]UserBindingModel model)
         {
@@ -91,12 +87,13 @@ namespace EducationSystem.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var result = await userService.EditUser(model,false);
+            var result = await _userService.EditUser(model,false);
 
             return Ok(result);
         }
 
         [HttpPost]
+        //TODO: change to put
         [Route("editUser")]
         [Authorize(Roles = nameof(Roles.Admin))]
         public async Task<IActionResult> EditUserByAdmin([FromBody]UserBindingModel model)
@@ -110,7 +107,7 @@ namespace EducationSystem.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var result = await userService.EditUser(model,true);
+            var result = await _userService.EditUser(model,true);
             return Ok(result);
         }
 
@@ -129,7 +126,7 @@ namespace EducationSystem.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = userService.RemoveUser(id);
+            var result = _userService.RemoveUser(id);
 
             return Ok(result);
         }

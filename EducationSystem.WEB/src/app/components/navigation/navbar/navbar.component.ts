@@ -14,16 +14,15 @@ export class NavbarComponent implements OnInit {
     location: Location;
     private toggleButton: any;
     private sidebarVisible: boolean;
-    private authGuard: AuthGuard;
-    private authenticationService: AuthenticationService;
     loginText: string;// = this.authGuard && this.authGuard.isAuthenticated ? "Log off" : "Log in";
     @Input() userRoleId: string;
 
-    constructor(location: Location, private element: ElementRef, private _authGuard: AuthGuard, private _authenticationService: AuthenticationService) {
+    constructor(location: Location,
+        private element: ElementRef,
+        private authGuard: AuthGuard,
+        private authenticationService: AuthenticationService) {
       this.location = location;
       this.sidebarVisible = false;
-      this.authGuard = _authGuard;
-      this.authenticationService = _authenticationService;
     }
 
     ngOnInit(){

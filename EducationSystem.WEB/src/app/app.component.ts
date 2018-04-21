@@ -41,10 +41,9 @@ export class AppComponent implements OnInit {
         toasterService: ToasterService,
         private authenticationService: AuthenticationService
     ) {
-        // this language will be used as a fallback when a translation isn't found in the current language
+
         this.translate = translate;
         this.translate.setDefaultLang('en');
-        // the lang to use, if the lang isn't available, it will use the current loader to get them
         this.translate.use('en');
         this.toasterService = toasterService;
 
@@ -88,16 +87,7 @@ export class AppComponent implements OnInit {
     ngAfterViewInit() {
         this.runOnRouteChange();
     }
-    isMaps(path){
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        titlee = titlee.slice( 1 );
-        if(path == titlee){
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
+    
     runOnRouteChange(): void {
       if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
         const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');

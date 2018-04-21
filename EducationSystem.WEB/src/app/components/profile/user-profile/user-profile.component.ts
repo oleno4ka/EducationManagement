@@ -14,13 +14,9 @@ export class UserProfileComponent implements OnInit {
     roleName: string;
     loading = false;
     firstName: string = "first";
-    userService: UserService;
-    private toasterService: ToasterService;
     successMessage: boolean = false;
 
-    constructor(private _userService: UserService, toasterService: ToasterService) {
-        this.userService = _userService;
-        this.toasterService = toasterService;
+    constructor(private userService: UserService, private toasterService: ToasterService) {
     }
 
     ngOnInit() {

@@ -28,13 +28,7 @@ export const STUDENT_ROUTES: RouteInfo[] = [
 
 export const ROUTES: RouteInfo[] = [
     { path: 'user-profile', title: 'User Profile', icon: 'person', class: '' },
-    { path: 'home', title: 'Home', icon: 'home', class: '' },
-    { path: 'table-list', title: 'Table List', icon: 'content_paste', class: '' },
-    { path: 'typography', title: 'Typography', icon: 'library_books', class: '' },
-    { path: 'icons', title: 'Icons', icon: 'bubble_chart', class: '' },
-    { path: 'maps', title: 'Maps', icon: 'location_on', class: '' },
-    { path: 'notifications', title: 'Notifications', icon: 'notifications', class: '' },
-    { path: 'upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' },
+    { path: 'home', title: 'Home', icon: 'home', class: '' }
 ];
 
 @Component({
@@ -48,22 +42,22 @@ export class SidebarComponent implements OnInit, OnDestroy{
     // public user: User = new User();
     public currentUserName: string;
     userService: UserService;
-    private authGuard: AuthGuard;
     subscription: Subscription;
 
-    constructor(private _userService: UserService, private _authGuard: AuthGuard,
-        private _authenticationService: AuthenticationService) {
+    constructor(private _userService: UserService,
+        private authGuard: AuthGuard,
+        private authenticationService: AuthenticationService) {
         this.userService = _userService;
-        this.authGuard = _authGuard;
-        this.subscription = _authenticationService.userLogged$.subscribe(
+        this.authGuard = authGuard;
+        this.subscription = authenticationService.userLogged$.subscribe(
             role => {
                 console.log(role + " role is in sidebar.component");
                 this.userRole = role;
                 this.getMenuItems();
                 this.getUserName();
             });
-        if (this._authGuard.isAuthenticated) {
-            this.userRole = this._authGuard.userRoleId;
+        if (this.authGuard.isAuthenticated) {
+            this.userRole = this.authGuard.userRoleId;
         }
     }
 
@@ -77,7 +71,7 @@ export class SidebarComponent implements OnInit, OnDestroy{
         if (this.menuItems) {
             this.menuItems = null;
         }
-        if (this._authGuard.isAuthenticated) {
+        if (this.authGuard.isAuthenticated) {
             if (this.userRole && Roles[this.userRole] == Roles.Admin) {
                 this.menuItems = ADMIN_ROUTES.filter(menuItem => menuItem);
             }
@@ -117,8 +111,8 @@ export class SidebarComponent implements OnInit, OnDestroy{
     };
 
     isAdmin(): boolean {
-        console.log(this._authGuard.userRoleId);
-        return this._authGuard.userRoleId && Roles[this._authGuard.userRoleId] == Roles.Admin;
+        console.log(this.authGuard.userRoleId);
+        return this.authGuard.userRoleId && Roles[this.authGuard.userRoleId] == Roles.Admin;
     }
 
     ngOnDestroy() {
