@@ -40,7 +40,7 @@ namespace EducationSystem.Api.Controllers
             return Ok(new { token = token});
         }
 
-        // PUT api/values/5
+        // PUT api/register
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody]RegisterBindingModel model)
@@ -63,7 +63,7 @@ namespace EducationSystem.Api.Controllers
         }
 
         [HttpGet]
-        [Route("getRoles")]
+        [Route("roles")]
         public IActionResult GetRoles()
         {
             var roles = enumService.GetRoles();

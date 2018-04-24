@@ -16,7 +16,7 @@ export class RoleService {
     }
 
     public getRoles(): Observable<Role[]>  {
-        return this.http.get<Role[]>(this.BASEURL + 'api/account/getroles', { headers: Headers });
+        return this.http.get<Role[]>(this.BASEURL + 'api/account/roles', { headers: Headers });
     }
 
 }

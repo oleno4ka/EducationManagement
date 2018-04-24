@@ -20,7 +20,7 @@ export class SubjectLevelService {
     }
 
     public getSubjects(): Observable<Subject[]> {
-        return this.http.get<Subject[]>(this.BASEURL + 'api/subject/getSubjects/', { headers: Headers }).map(subjectList => {
+        return this.http.get<Subject[]>(this.BASEURL + 'api/subject/subjects/', { headers: Headers }).map(subjectList => {
             return subjectList.map(subject => {
                 var subj = new Subject(subject.Name, subject.Id);
                 var levls = subject.SubjectLevels.map(sl => {
@@ -34,7 +34,7 @@ export class SubjectLevelService {
     }
 
     public getLevels(): Observable<Level[]> {
-        return this.http.get<Level[]>(this.BASEURL + 'api/subject/getSubjects/', { headers: Headers }).map(levelList => {
+        return this.http.get<Level[]>(this.BASEURL + 'api/subject/subjects/', { headers: Headers }).map(levelList => {
             var levelL : Level[];
             var ll = levelList.map(l => {
                 levelL.push(new Level(l.Name, l.Id, l.MinEntryTaskScore));
@@ -45,7 +45,7 @@ export class SubjectLevelService {
     }
 
     public addSubject(model: Subject): Observable<Subject>{
-        return this.http.post(this.BASEURL + 'api/subject/addNewSubject', model, { headers: Headers })
+        return this.http.post(this.BASEURL + 'api/subject/subjects', model, { headers: Headers })
             .map((response: any) => {
                 let subject = response;
                 return subject;
@@ -53,7 +53,7 @@ export class SubjectLevelService {
     }
 
     public addLevelForSubject(model: SubjectLevel): Observable<SubjectLevel> {
-        return this.http.post(this.BASEURL + 'api/subject/addLevelForSubject', model, { headers: Headers })
+        return this.http.post(this.BASEURL + 'api/subject/levels', model, { headers: Headers })
             .map((response: any) => {
                 let subject = response;
                 return subject;

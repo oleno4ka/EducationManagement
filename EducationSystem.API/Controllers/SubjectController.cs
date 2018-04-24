@@ -18,7 +18,7 @@ namespace EducationSystem.Api.Controllers
         }
 
         [HttpGet]
-        [Route("getSubjects")]
+        [Route("subjects")]
         //TODO require admin
         public IActionResult GetSubjects()
         {

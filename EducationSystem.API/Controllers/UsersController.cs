@@ -23,7 +23,7 @@ namespace EducationSystem.Api.Controllers
         }
 
         [HttpGet]
-        [Route("getUser")]
+        [Route("{id}")]
         //TODO require admin
         public IActionResult GetUser(string id = null)
         {
@@ -39,7 +39,7 @@ namespace EducationSystem.Api.Controllers
         }
 
         [HttpGet]
-        [Route("getUser/current")]
+        [Route("current")]
         //TODO require admin
         public async Task<IActionResult> GetUser()
         {
@@ -55,9 +55,8 @@ namespace EducationSystem.Api.Controllers
         }
 
         [HttpGet]
-        [Route("getUsers")]
         [Authorize(Roles = nameof(Roles.Admin))]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> Get()
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
             //var userRole = User.Claims.LastOrDefault(c => c.Type == JwtRegisteredClaimNames.)?.Value;
@@ -72,9 +71,8 @@ namespace EducationSystem.Api.Controllers
             return Ok(usersList);
         }
 
-        [HttpPost]
-        //TODO: change to put
-        [Route("edit")]
+        [HttpPatch]
+        [Route("current")]
         public async Task<IActionResult> EditCurrentUser([FromBody]UserBindingModel model)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
@@ -92,11 +90,10 @@ namespace EducationSystem.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        //TODO: change to put
-        [Route("editUser")]
+        [HttpPatch]
+        [Route("{id}")]
         [Authorize(Roles = nameof(Roles.Admin))]
-        public async Task<IActionResult> EditUserByAdmin([FromBody]UserBindingModel model)
+        public async Task<IActionResult> EditUserByAdmin(string id,[FromBody]UserBindingModel model)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; 
             if (userId == null || model.Id == userId)
@@ -111,8 +108,8 @@ namespace EducationSystem.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        [Route("remove")]
+        [HttpDelete]
+        [Route("{id}")]
         [Authorize(Roles = nameof(Roles.Admin))]
         public async Task<IActionResult> RemoveUser(string id)
         {

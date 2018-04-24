@@ -19,20 +19,20 @@ export class UserService {
     }
 
     public getById(id: string): Observable<User> {
-        return this.http.get<User>(this.BASEURL + 'api/users/getUser/' + id, { headers: Headers }).map(user => {
+        return this.http.get<User>(this.BASEURL + 'api/users/' + id, { headers: Headers }).map(user => {
             return new User(user.id, user.firstName, user.lastName, user.middleName, user.phoneNumber, user.email, user.dateOfBirth, user.dateRegistered, user.profilePictureUrl, user.roleId);
         });
     }
 
     public getCurrent(): Observable<User> {
-        return this.http.get<User>(this.BASEURL + 'api/users/getUser/current', { headers: Headers })
+        return this.http.get<User>(this.BASEURL + 'api/users/current', { headers: Headers })
             .map(user => {
                 return new User(user.id, user.firstName, user.lastName, user.middleName, user.phoneNumber, user.email, user.dateOfBirth, user.dateRegistered, user.profilePictureUrl, user.roleId);
             });
     }
 
     public getList(): Observable<User[]> {
-        return this.http.get<User[]>(this.BASEURL + 'api/users/getUsers/', { headers: Headers })
+        return this.http.get<User[]>(this.BASEURL + 'api/users', { headers: Headers })
             .map(res => {
                 return res.map(user => {
                     return new User(user.id, user.firstName, user.lastName, user.middleName, user.phoneNumber, user.email, user.dateOfBirth, user.dateRegistered, user.profilePictureUrl, user.roleId);
@@ -40,7 +40,7 @@ export class UserService {
             });
     }
     public editUserListItem(model) {
-        return this.http.post(this.BASEURL + 'api/users/editUser', model, { headers: Headers })
+        return this.http.patch(this.BASEURL + 'api/users/'+model.id, model, { headers: Headers })
             .map((response: any) => {
                 let user = response;
                 return user;
@@ -48,7 +48,7 @@ export class UserService {
     }
 
     public edit(model) {
-        return this.http.post(this.BASEURL + 'api/users/edit', model, { headers: Headers })
+        return this.http.patch(this.BASEURL + 'api/users/current', model, { headers: Headers })
             .map((response: any) => {
                 let user = response;
                 return user;
@@ -56,7 +56,7 @@ export class UserService {
     }
 
     public remove(id) {
-        return this.http.post(this.BASEURL + 'api/users/remove?id=' + id, { headers: Headers })
+        return this.http.delete(this.BASEURL + 'api/users/' + id, { headers: Headers })
             .map((response: any) => {
                 return response;
             });
